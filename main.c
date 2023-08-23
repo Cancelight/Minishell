@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/23 13:58:59 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/23 14:07:33 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	ft_split(char c)
 			lstadd_back(&data->parse, lstnew(substr(data->line, n, i - n))); // "||" durumunda bu satıra girecek ama returnlerden dolayı bir şey olmayacak
 			lstadd_back(&data->parse, lstnew("|")); //pipetan sonra null gelirse ne olacak ?
 			n = i + 1;
-		}//quote açık kaldıysa
-		if (data->line[i + 1] == 0) // && (sng % 2 || dbl % 2)
+		}
+		if (data->line[i + 1] == 0) // string sonu ve quote açık kalma durumu 
 		{
 			if (sng % 2)
 				lstadd_back(&data->parse, lstnew(substr(ft_strjoin(data->line, "'"), n, i - n + 1)));
@@ -91,7 +91,7 @@ char	*substr(char const *s, unsigned int start, size_t len)
 
 	if (!s)
 		return (0);
-	if (ft_strlen(s) < start)
+	if (ft_strlen(s) < start || len == 0)
 		return (0);
 	if (len > ft_strlen(s) - start)
 		len = ft_strlen(s) - start;
