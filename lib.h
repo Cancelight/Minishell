@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/23 12:59:51 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/23 13:21:52 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef struct s_data{
 int		argc;
 char	**argv;
 char	**envp;
-char	*rd_line;
+char	*line;
 t_parse	*parse;
 }				t_data;
 

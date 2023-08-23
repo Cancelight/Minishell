@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/23 13:08:36 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/23 13:58:59 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ t_data *data;
 int	main(int argc, char **argv, char **envp)
 {
 	data = malloc(sizeof(t_data) * 1);
-
 	data->argc = argc;
 	data->argv = argv;
 	data->envp = envp;
@@ -30,12 +29,12 @@ void	reading_line()
 {
 	while (1)
 	{
-		data->rd_line = readline("minihshell > ");
-		if (data->rd_line && *(data->rd_line))
+		data->line = readline("minihshell > ");
+		if (data->line && *(data->line))
 		{
-			add_history(data->rd_line);
+			add_history(data->line);
 			parser();
-			free(data->rd_line);
+			free(data->line);
 			//tüm structı freele her saturda işlenen
 		}
 	}
@@ -49,44 +48,40 @@ void	parser()
 }
 
 //pipe varsa ve quote açıksa devam et değilse nodea al ve pipeı da ayrı bir nodea al
-char	**ft_split(char c)
+void	ft_split(char c)
 {
 	int	i;
-	int	a;
 	int	n;
 	int	dbl;
 	int	sng;
 
-	a = 0;
 	i = 0;
 	n = 0;
 	sng = 0;
 	dbl = 0;
-	while (data->rd_line[i])
+	while (data->line[i])
 	{
-		if (data->rd_line[i] == '\'')
+		if (data->line[i] == '\'')
 			sng++;
-		else if (data->rd_line[i] == '"')
+		else if (data->line[i] == '"')
 			dbl++;
-		else if (data->rd_line[i] == c && !(sng % 2) && !(dbl % 2)) //quotelar kapalı ve pipea geldiyse
+		else if (data->line[i] == c && !(sng % 2) && !(dbl % 2)) //quotelar kapalı ve pipea geldiyse
 		{
-			lstadd_back(&data->parse, lstnew(substr(data->rd_line, n, i - n))); // "||" durumunda bu satıra girecek ama returnlerden dolayı bir şey olmayacak
-			lstadd_back(&data->parse, lstnew("|"));
+			lstadd_back(&data->parse, lstnew(substr(data->line, n, i - n))); // "||" durumunda bu satıra girecek ama returnlerden dolayı bir şey olmayacak
+			lstadd_back(&data->parse, lstnew("|")); //pipetan sonra null gelirse ne olacak ?
 			n = i + 1;
+		}//quote açık kaldıysa
+		if (data->line[i + 1] == 0) // && (sng % 2 || dbl % 2)
+		{
+			if (sng % 2)
+				lstadd_back(&data->parse, lstnew(substr(ft_strjoin(data->line, "'"), n, i - n + 1)));
+			else if (dbl % 2)
+				lstadd_back(&data->parse, lstnew(substr(ft_strjoin(data->line, "\""), n, i - n + 1)));
+			else
+				lstadd_back(&data->parse, lstnew(substr(data->line, n, i - n)));
 		}
-		else if ()
 		i++;
-
-
-
-
-
-		n = i;
-		while (s[i] != c && s[i])
-			i++;
-		ptr[a++] = substr(s, n, i - n);
 	}
-	return (ptr);
 }
 
 char	*substr(char const *s, unsigned int start, size_t len)
@@ -148,4 +143,50 @@ t_parse	*lstlast(t_parse *lst)
 		return (lst);
 	}
 	return (0);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*ptr;
+
+	if (!s1 || !s2)
+		return (0);
+	ptr = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (ptr == NULL)
+		return (NULL);
+	ft_strlcpy(ptr, s1, ft_strlen(s1) + 1);
+	ft_strlcat(ptr, s2, ft_strlen(s1) + ft_strlen(s2) + 1);
+	return (ptr);
+}
+
+
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+
+	if (!dst && !dstsize)
+		return (0);
+	i = ft_strlen(dst);
+	if (i >= dstsize)
+		return (ft_strlen(src) + dstsize);
+	ft_strlcpy((dst + i), src, dstsize - i);
+	return (i + ft_strlen(src));
+}
+
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	int		s1;
+	size_t	i;
+
+	i = 0;
+	s1 = ft_strlen(src);
+	if (!dstsize)
+		return (s1);
+	while (src[i] && i < dstsize - 1)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
+	return (s1);
 }
