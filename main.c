@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/23 14:54:39 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/23 18:03:18 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	reading_line()
 			free(data->line);
 			//tüm structı freele her saturda işlenen
 		}
+			system("leaks a.out");
 	}
 
 
@@ -45,15 +46,14 @@ void	reading_line()
 void	parser()
 {
 	ft_split('|');
-	while(data->parse != NULL)
+/*	while(data->parse != NULL)
 	{
 		printf("content: %s\n", data->parse->content);
 		data->parse = data->parse->next;
-	}
+	}*/
 
 }
 
-//pipe varsa ve quote açıksa devam et değilse nodea al ve pipeı da ayrı bir nodea al
 void	ft_split(char c)
 {
 	int	i;
@@ -102,12 +102,13 @@ char	*substr(char const *s, unsigned int start, size_t len)
 	if (len > ft_strlen(s) - start)
 		len = ft_strlen(s) - start;
 	i = 0;
-	ptr = ft_calloc(len + 1, sizeof(char));
+	ptr = malloc((len + 1) * sizeof(char));
 	if (!ptr)
 		return (NULL);
 	ptr[len] = 0;
 	while (i < len)
 		ptr[i++] = s[start++];
+	ptr[i] = '\0';
 	return (ptr);
 }
 
@@ -151,84 +152,35 @@ t_parse	*lstlast(t_parse *lst)
 	return (0);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*ptr;
+	int		i;
 
-	if (!s1 || !s2)
-		return (0);
+	i = -1;
+	if (!s1)
+	{
+		s1 = malloc(1 * sizeof(char));
+		s1[0] = '\0';
+	}
 	ptr = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (ptr == NULL)
 		return (NULL);
-	ft_strlcpy(ptr, s1, ft_strlen(s1) + 1);
-	ft_strlcat(ptr, s2, ft_strlen(s1) + ft_strlen(s2) + 1);
+	while (s1 && s1[++i] != '\0')
+		ptr[i] = s1[i];
+	while (s2 && *s2 != '\0')
+		ptr[i++] = *s2++;
+	ptr[i] = '\0';
+	free(s1);
 	return (ptr);
 }
 
-
-size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
+int	ft_strlen(const char *s)
 {
-	size_t	i;
-
-	if (!dst && !dstsize)
-		return (0);
-	i = ft_strlen(dst);
-	if (i >= dstsize)
-		return (ft_strlen(src) + dstsize);
-	ft_strlcpy((dst + i), src, dstsize - i);
-	return (i + ft_strlen(src));
-}
-
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
-{
-	int		s1;
-	size_t	i;
-
-	i = 0;
-	s1 = ft_strlen(src);
-	if (!dstsize)
-		return (s1);
-	while (src[i] && i < dstsize - 1)
-	{
-		dst[i] = src[i];
-		i++;
-	}
-	dst[i] = '\0';
-	return (s1);
-}
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (s[i])
 		i++;
 	return (i);
-}
-
-void	*ft_calloc(size_t count, size_t size)
-{
-	void	*ptr;
-
-	ptr = malloc(count * size);
-	if (ptr == NULL)
-		return (0);
-	ft_memset(ptr, 0, (size * count));
-	return (ptr);
-}
-
-void	*ft_memset(void *b, int c, size_t len)
-{
-	unsigned char	u;
-	size_t			i;
-
-	u = c;
-	i = 0;
-	while (i < len)
-	{
-		((unsigned char *)b)[i] = u;
-		i++;
-	}
-	return (b);
 }
