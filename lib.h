@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/23 13:21:52 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/23 14:30:28 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,19 @@ t_parse	*parse;
 //fonksiyonlar
 void		signal_function(void);
 t_parse		*lstnew(char *content);
-void		parser(void);
+void		parser();
 t_parse		*lstlast(t_parse *lst);
 void		lstadd_back(t_parse **lst, t_parse *new);
+size_t	ft_strlen(const char *s);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*substr(char const *s, unsigned int start, size_t len);
+void	ft_split(char c);
+void	reading_line();
+void	*ft_calloc(size_t count, size_t size);
+void	*ft_memset(void *b, int c, size_t len);
+
+
 
 #endif

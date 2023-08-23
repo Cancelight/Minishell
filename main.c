@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/23 14:07:33 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/23 14:37:24 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,12 @@ void	reading_line()
 
 void	parser()
 {
+	ft_split('|');
+	while(data->parse != NULL)
+	{
+		printf("content: %s\n", data->parse->content);
+		data->parse = data->parse->next;
+	}
 
 }
 
@@ -61,9 +67,9 @@ void	ft_split(char c)
 	dbl = 0;
 	while (data->line[i])
 	{
-		if (data->line[i] == '\'')
+		if (data->line[i] == '\'' && !(dbl % 2))
 			sng++;
-		else if (data->line[i] == '"')
+		else if (data->line[i] == '"' && !(sng % 2)) //eğer quoteun içinde değilse arttıllmalı
 			dbl++;
 		else if (data->line[i] == c && !(sng % 2) && !(dbl % 2)) //quotelar kapalı ve pipea geldiyse
 		{
@@ -71,7 +77,7 @@ void	ft_split(char c)
 			lstadd_back(&data->parse, lstnew("|")); //pipetan sonra null gelirse ne olacak ?
 			n = i + 1;
 		}
-		if (data->line[i + 1] == 0) // string sonu ve quote açık kalma durumu 
+		if (data->line[i + 1] == 0) // string sonu ve quote açık kalma durumu son harfi almıyor
 		{
 			if (sng % 2)
 				lstadd_back(&data->parse, lstnew(substr(ft_strjoin(data->line, "'"), n, i - n + 1)));
@@ -189,4 +195,40 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	}
 	dst[i] = '\0';
 	return (s1);
+}
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
+
+	ptr = malloc(count * size);
+	if (ptr == NULL)
+		return (0);
+	ft_memset(ptr, 0, (size * count));
+	return (ptr);
+}
+
+void	*ft_memset(void *b, int c, size_t len)
+{
+	unsigned char	u;
+	size_t			i;
+
+	u = c;
+	i = 0;
+	while (i < len)
+	{
+		((unsigned char *)b)[i] = u;
+		i++;
+	}
+	return (b);
 }
