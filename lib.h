@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/23 18:30:56 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/23 20:02:47 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 //struct
 typedef struct	s_parse{
 char			*content;
-struct s_parse	*next;
+struct			s_parse	*next;
 }				t_parse;
 
 
@@ -41,6 +41,8 @@ int		argc;
 char	**argv;
 char	**envp;
 char	*line;
+int		dbl;
+int		sng;
 t_parse	*parse;
 }				t_data;
 
@@ -50,11 +52,13 @@ t_parse		*lstnew(char *content);
 void		parser();
 t_parse		*lstlast(t_parse *lst);
 void		add_back(t_parse **lst, t_parse *new);
-int		ft_strlen(const char *s);
-char	*strjoin(char *s1, char *s2);
-char	*substr(char const *s, unsigned int start, size_t len);
-void	ft_split(char c);
-void	reading_line();
+int			ft_strlen(const char *s);
+char		*strjoin(char *s1, char *s2);
+char		*substr(char const *s, unsigned int start, size_t len);
+void		ft_split();
+void		reading_line();
+void		addlist_substr(int i, int *n);
+
 
 
 #endif
