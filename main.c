@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/23 14:37:24 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/23 14:54:39 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,11 +80,11 @@ void	ft_split(char c)
 		if (data->line[i + 1] == 0) // string sonu ve quote açık kalma durumu son harfi almıyor
 		{
 			if (sng % 2)
-				lstadd_back(&data->parse, lstnew(substr(ft_strjoin(data->line, "'"), n, i - n + 1)));
+				lstadd_back(&data->parse, lstnew(substr(ft_strjoin(data->line, "'"), n, i - n + 2)));
 			else if (dbl % 2)
-				lstadd_back(&data->parse, lstnew(substr(ft_strjoin(data->line, "\""), n, i - n + 1)));
+				lstadd_back(&data->parse, lstnew(substr(ft_strjoin(data->line, "\""), n, i - n + 2)));
 			else
-				lstadd_back(&data->parse, lstnew(substr(data->line, n, i - n)));
+				lstadd_back(&data->parse, lstnew(substr(data->line, n, i - n + 1)));
 		}
 		i++;
 	}
