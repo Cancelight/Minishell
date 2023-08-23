@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/23 18:03:18 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/23 18:34:09 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	main(int argc, char **argv, char **envp)
 
 void	reading_line()
 {
+	t_parse *temp;
+
 	while (1)
 	{
 		data->line = readline("minihshell > ");
@@ -35,23 +37,21 @@ void	reading_line()
 			add_history(data->line);
 			parser();
 			free(data->line);
-			//tüm structı freele her saturda işlenen
+			while(data->parse != NULL)
+			{
+				temp = data->parse;
+				data->parse = data->parse->next;
+				//free(temp->content);
+				free(temp);
+			}
 		}
-			system("leaks a.out");
 	}
-
-
+			system("leaks a.out");
 }
 
 void	parser()
 {
 	ft_split('|');
-/*	while(data->parse != NULL)
-	{
-		printf("content: %s\n", data->parse->content);
-		data->parse = data->parse->next;
-	}*/
-
 }
 
 void	ft_split(char c)
@@ -61,11 +61,11 @@ void	ft_split(char c)
 	int	dbl;
 	int	sng;
 
-	i = 0;
+	i = -1;
 	n = 0;
 	sng = 0;
 	dbl = 0;
-	while (data->line[i])
+	while (data->line[++i])
 	{
 		if (data->line[i] == '\'' && !(dbl % 2))
 			sng++;
@@ -73,20 +73,19 @@ void	ft_split(char c)
 			dbl++;
 		else if (data->line[i] == c && !(sng % 2) && !(dbl % 2)) //quotelar kapalı ve pipea geldiyse
 		{
-			lstadd_back(&data->parse, lstnew(substr(data->line, n, i - n))); // "||" durumunda bu satıra girecek ama returnlerden dolayı bir şey olmayacak
-			lstadd_back(&data->parse, lstnew("|")); //pipetan sonra null gelirse ne olacak ?
+			add_back(&data->parse, lstnew(substr(data->line, n, i - n))); // "||" durumunda bu satıra girecek ama returnlerden dolayı bir şey olmayacak
+			add_back(&data->parse, lstnew("|")); //pipetan sonra null gelirse ne olacak ?
 			n = i + 1;
 		}
 		if (data->line[i + 1] == 0) // string sonu ve quote açık kalma durumu son harfi almıyor
 		{
 			if (sng % 2)
-				lstadd_back(&data->parse, lstnew(substr(ft_strjoin(data->line, "'"), n, i - n + 2)));
+				add_back(&data->parse, lstnew(substr(strjoin(data->line, "'"), n, i - n + 2)));
 			else if (dbl % 2)
-				lstadd_back(&data->parse, lstnew(substr(ft_strjoin(data->line, "\""), n, i - n + 2)));
+				add_back(&data->parse, lstnew(substr(strjoin(data->line, "\""), n, i - n + 2)));
 			else
-				lstadd_back(&data->parse, lstnew(substr(data->line, n, i - n + 1)));
+				add_back(&data->parse, lstnew(substr(data->line, n, i - n + 1)));
 		}
-		i++;
 	}
 }
 
@@ -126,7 +125,7 @@ t_parse	*lstnew(char *content)
 	return (r);
 }
 
-void	lstadd_back(t_parse **lst, t_parse *new)
+void	add_back(t_parse **lst, t_parse *new)
 {
 	if (!lst || !new)
 		return ;
@@ -144,15 +143,13 @@ t_parse	*lstlast(t_parse *lst)
 	if (lst != NULL)
 	{
 		while (lst -> next != NULL)
-		{
 			lst = lst -> next;
-		}
 		return (lst);
 	}
 	return (0);
 }
 
-char	*ft_strjoin(char *s1, char *s2)
+char	*strjoin(char *s1, char *s2)
 {
 	char	*ptr;
 	int		i;
