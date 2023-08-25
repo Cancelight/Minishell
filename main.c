@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/25 18:37:02 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/25 19:18:27 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,16 +99,17 @@ void	addlist_substr(int i, int *n)
 
 void	syntax_check(t_parse *parse)
 {
-	t_parse *temp;
-
-	temp = parse;
-	while(temp != NULL)
+	while(parse != NULL)
 	{
-		if (multiple_pipes(temp))
+		if (multiple_pipes(parse))
 			exit(0);//değiştirilecek exit fonksiyonu yazılabilir
-		else
-			pre_trim(temp->content);
-		temp = temp->next;
+		else if (strmatch(parse->content, "<>"))
+		{
+			data->sng = 0;
+			data->dbl = 0;
+			pretrim(parse->content);
+		}
+		parse = parse->next;
 	}
 }
 
@@ -124,28 +125,37 @@ int	multiple_pipes(t_parse *temp)
 
 int	pre_trim(char *find)
 {
-	if (strmatch(find, "<>"))
+	int	i;
+
+	i = -1;
+	while(find[++i])
 	{
-		
+		if (find [i] == '\'')
+			i = strchr(&find[++i], '"');
+		else if (find [i] == '"')
+			i = strchr(&find[++i], '"');
+		else
+		{
+			
+		}
 	}
 }
 
 
 
 
-char	*ft_strchr(const char *s, int c)
+int	ft_strchr(char *s, int c)
 {
 	int	i;
 
-	i = 0;
-	while (s[i])
+	i = -1;
+	while (s[++i])
 	{
 		if (s[i] == (char)c)
-			return (1);
-		i++;
+			return (i);
 	}
-	if (((char *)s)[i] == (char)c)
-		return (1);
+	if (s[i] == (char)c)
+		return (i);
 	return (0);
 }
 
@@ -168,18 +178,4 @@ int	strmatch(const char *s1, const char *s2)
 		}
 	}
 	return (0);
-}
-
-int	ft_strncmp(const char *s1, const char *s2)
-{
-	unsigned int	i;
-
-	i = 0;
-	while (s1[i] && s2[i])
-	{
-		if (s1[i] != s2[i])
-			return (0);
-		i++;
-	}
-	return (1);
 }
