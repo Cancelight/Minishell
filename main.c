@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/25 19:18:27 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/25 19:36:25 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,7 @@ void	syntax_check(t_parse *parse)
 		if (multiple_pipes(parse))
 			exit(0);//değiştirilecek exit fonksiyonu yazılabilir
 		else if (strmatch(parse->content, "<>"))
-		{
-			data->sng = 0;
-			data->dbl = 0;
 			pretrim(parse->content);
-		}
 		parse = parse->next;
 	}
 }
@@ -134,29 +130,32 @@ int	pre_trim(char *find)
 			i = strchr(&find[++i], '"');
 		else if (find [i] == '"')
 			i = strchr(&find[++i], '"');
-		else
-		{
-			
-		}
+		else if ((find[i] == '<' || find [i] == '>') && (find[i + 1] != '\0'))
+			syntax_redirection(&find[i]);
 	}
+}
+
+int syntax_redirection(char *str)
+{
+	int	i;
+
+	i = 0;
+	
 }
 
 
 
-
-int	ft_strchr(char *s, int c)
+int	strchr(char *s, int c)
 {
 	int	i;
 
 	i = -1;
 	while (s[++i])
 	{
-		if (s[i] == (char)c)
+		if (s[i] == c)
 			return (i);
 	}
-	if (s[i] == (char)c)
-		return (i);
-	return (0);
+	return (-1);
 }
 
 
