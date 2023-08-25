@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/25 19:36:25 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/25 20:28:48 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ int	main(int argc, char **argv, char **envp)
 	data->argv = argv;
 	data->envp = envp;
 	reading_line();
-	parser();
 	signal_function();//şimdilik çalışmıyor projenin ana hatları bitince yazılacak
 }
 
@@ -31,11 +30,12 @@ void	reading_line(void)
 
 	while (1)
 	{
-		data->line = readline("minihshell > ");
+		data->line = readline("minishell > ");
 		if (data->line && *(data->line))
 		{
 			add_history(data->line);
 			parser();
+			syntax_check(data->parse);
 			free(data->line);
 		/*	while(data->parse != NULL) //her alınan satırdan sonra freelemek için yapılandırma gerekiyor
 			{
@@ -54,11 +54,11 @@ void	parser(void)
 	data->sng = 0;//single quote için
 	data->dbl = 0;//double quote için
 	ft_split();
-	while (data->parse != NULL) //düzgün parse yapıp yapmama durumunu kontrol için, leake neden olan kısım bu
+	/*while (data->parse != NULL) //düzgün parse yapıp yapmama durumunu kontrol için, leake neden olan kısım bu
 	{
 		printf("content: %s\n", data->parse->content);
 		data->parse = data->parse->next;
-	}
+	}*/
 }
 
 void	ft_split(void)
@@ -104,7 +104,7 @@ void	syntax_check(t_parse *parse)
 		if (multiple_pipes(parse))
 			exit(0);//değiştirilecek exit fonksiyonu yazılabilir
 		else if (strmatch(parse->content, "<>"))
-			pretrim(parse->content);
+			pre_trim(parse->content);
 		parse = parse->next;
 	}
 }
@@ -119,7 +119,7 @@ int	multiple_pipes(t_parse *temp)
 		return (0);
 }
 
-int	pre_trim(char *find)
+void	pre_trim(char *find)
 {
 	int	i;
 
@@ -127,25 +127,45 @@ int	pre_trim(char *find)
 	while(find[++i])
 	{
 		if (find [i] == '\'')
-			i = strchr(&find[++i], '"');
+			i = strchar(&find[++i], '"');
 		else if (find [i] == '"')
-			i = strchr(&find[++i], '"');
-		else if ((find[i] == '<' || find [i] == '>') && (find[i + 1] != '\0'))
-			syntax_redirection(&find[i]);
+			i = strchar(&find[++i], '"');
+		else if (find[i] == '<')
+			i += syntax_redirection(&find[i], '<') + 1;
+		else if (find[i] == '>')
+			i += syntax_redirection(&find[i], '>') + 1;
+
 	}
 }
 
-int syntax_redirection(char *str)
+int syntax_redirection(char *str, char symbol)
 {
-	int	i;
+	int		i;
+	char	rev_sym;
 
 	i = 0;
-	
+	if (symbol == '<')
+		rev_sym = '>';
+	else
+		rev_sym = '<';
+	if (str[i] == symbol)
+	{
+		i++;
+		if (str[i] == '\0' || str[i] == rev_sym)
+			exit(-1);
+		if (str[i] == symbol)
+			i++;
+		while (str[i] && str[i] == 32)
+				i++;
+		if (str[i] == '\0' || str[i] == symbol || str[i] == rev_sym)
+				exit( -1);
+	}
+	return (i);
 }
 
 
 
-int	strchr(char *s, int c)
+int	strchar(char *s, int c)
 {
 	int	i;
 
@@ -166,6 +186,7 @@ int	strmatch(const char *s1, const char *s2)
 
 	a = -1;
 	i = 0;
+
 	while (s2[++a])
 	{
 		i = 0;

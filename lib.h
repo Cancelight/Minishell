@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/25 12:52:00 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/25 20:18:38 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,10 @@ char		*substr(char const *s, unsigned int start, size_t len);
 void		ft_split();
 void		reading_line();
 void		addlist_substr(int i, int *n);
-
-
-
+void		syntax_check(t_parse *parse);
+int	multiple_pipes(t_parse *temp);
+void pre_trim(char *find);
+int syntax_redirection(char *str, char symbol);
+int	strchar(char *s, int c);
+int	strmatch(const char *s1, const char *s2);
 #endif
