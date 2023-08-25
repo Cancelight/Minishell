@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/23 20:02:47 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/25 12:52:00 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@
 # include <sys/ioctl.h>
 
 
-//struct
+//struct parselamak için
 typedef struct	s_parse{
 char			*content;
 struct			s_parse	*next;
 }				t_parse;
 
-
+//genel verilerin tutulması için
 typedef struct s_data{
 int		argc;
 char	**argv;
