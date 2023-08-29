@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/29 11:50:19 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/29 12:19:19 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ int	main(int argc, char **argv, char **envp)
 
 void	reading_line(void)
 {
-	t_parse *temp;
-
 	while (1)
 	{
 		data->line = readline("minishell > ");
@@ -37,16 +35,26 @@ void	reading_line(void)
 			parser();
 			syntax_check(data->parse);
 			free(data->line);
-		/*	while(data->parse != NULL) //her alınan satırdan sonra freelemek için yapılandırma gerekiyor
-			{
-				temp = data->parse;
-				data->parse = data->parse->next;
-				//free(temp->content);
-				free(temp);
-			}*/
+			lstclear(&(data->parse));
 		}
-	}
 			//system("leaks a.out");
+	}
+}
+
+void	lstclear(t_parse **lst)
+{
+	t_parse	*cnext;
+
+	if (!lst || !*lst)
+		return ;
+	cnext = (*lst);
+	while (cnext != (NULL))
+	{
+		cnext = (*lst)->next;
+		//free((*lst)->content);
+		free(*lst);
+		(*lst) = cnext;
+	}
 }
 
 void	parser(void)
@@ -59,6 +67,7 @@ void	parser(void)
 		printf("content: %s\n", data->parse->content);
 		data->parse = data->parse->next;
 	}*/
+	system("leaks a.out");
 }
 
 void	ft_split(void)
@@ -68,6 +77,7 @@ void	ft_split(void)
 
 	i = -1;
 	n = 0;
+
 	while (data->line[++i])
 	{
 		if (data->line[i] == '\'' && !(data->dbl % 2))//double quote açık değilse arttırılacak "bvjhwbshje'gjheuır" gibi durumlardan kaçınmak için
@@ -88,6 +98,7 @@ void	ft_split(void)
 				add_back(&data->parse, lstnew(substr(data->line, n, i - n + 1)));
 		}
 	}
+	//system("leaks a.out");
 }
 
 void	addlist_substr(int i, int *n)
@@ -155,9 +166,9 @@ int syntax_redirection(char *str, char symbol)
 		if (str[i] == symbol)
 			i++;
 		while (str[i] && str[i] == 32)
-				i++;
+			i++;
 		if (str[i] == '\0' || str[i] == symbol || str[i] == rev_sym)
-				exit( -1);
+			exit(-1);
 	}
 	return (i);
 }
