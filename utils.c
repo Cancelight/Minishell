@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:46 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/25 12:57:45 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/29 19:03:49 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ int	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*substr(char const *s, unsigned int start, size_t len)
+char	*substr(char const *s, int start, int len)
 {
 	char	*ptr;
-	size_t	i;
+	int	i;
 
 	if (!s)
 		return (0);
@@ -103,4 +103,70 @@ char	*substr(char const *s, unsigned int start, size_t len)
 		ptr[i++] = s[start++];
 	ptr[i] = '\0';
 	return (ptr);
+}
+
+void	clear_lst(t_parse **lst)
+{
+	t_parse *cnext;
+
+	cnext = (*lst);
+	while (cnext != (NULL))
+	{
+		cnext = (*lst)->next;
+		free((*lst)->content);
+		free(*lst);
+		(*lst) = cnext;
+	}
+}
+
+int	strchar(char *s, int c)
+{
+	int	i;
+
+	i = -1;
+	while (s[++i])
+	{
+		if (s[i] == c)
+			return (i);
+	}
+	return (-1);
+}
+
+int	strmatch(const char *s1, const char *s2)
+{
+	int	i;
+	int	a;
+
+	a = -1;
+	i = 0;
+
+	while (s2[++a])
+	{
+		i = 0;
+		while (s1[i])
+		{
+			if (s1[i] == s2[a])
+				return (1);
+			i++;
+		}
+	}
+	return (0);
+}
+
+char	*put_pipe(const char *s1)
+{
+	char	*cp;
+
+	cp = malloc((ft_strlen(s1) + 1) * sizeof(char));
+	if (cp == NULL)
+		return (0);
+	cp[0] = '|';
+	cp[1] = '\0';
+	return(cp);
+}
+
+void	exit_program(int i)
+{
+	printf("Error\n");
+	exit(i);
 }
