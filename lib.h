@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 11:19:51 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 12:02:37 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,12 @@ int		argc;
 char	**argv;
 char	**envp;
 char	*line;
+char	*input_file;
+char	*output_file;
 int		dbl;
 int		sng;
 t_parse	*parse;
-}				t_data;
+}		t_data;
 
 //fonksiyonlar
 void		signal_function(void);
@@ -65,10 +67,12 @@ int			syntax_redirection(char *str, char symbol);
 int			strchar(char *s, int c);
 int			strmatch(const char *s1, const char *s2);
 void		clear_lst(t_parse **lst);
-char		*put_pipe(const char *s1);
+char		*str_dup(const char *s1);
 void		exit_program(int i);
 void		nav_redirection(t_parse *parse);
 void		heredoc_list(t_parse *parse);
 int			ft_strcmp(const char *s1, const char *s2);
+void		ft_putstr_fd(char *s, int fd);
+void	change_data_input(char *file);
 
 #endif

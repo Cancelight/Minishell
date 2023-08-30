@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 11:22:20 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 12:02:29 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,32 +51,43 @@ void heredoc_str(char *str)
 		else if (str[i] == '"')
 			i = strchar(&str[++i], '"') + 1;
 		else if (str[i] == '<' && str[i + 1] == '<')
-			i = heredoc_file(str, i);
+			i = heredoc_file(str, i + 2);
+	}
 }
 
 int	heredoc_file(char *str, int i)
 {
 	int		n;
+	char	*check;
 	char	*take;
-	char	*red;
 	int		fd;
 
-	i += 2;
 	while (str[i] == 32)
 		i++;
 	n = i;
 	while (str[i] && str[i] != '>' && str[i] != '<' && str[i] != 32)
 		i++;
-	take = substr(str, n, i - n);
-	red = readline("> ");
-	while (ft_strcmp(red, take))
+	check = substr(str, n, i - n);
+	fd = open("heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	take = readline("> ");
+	while (ft_strcmp(take, check))
 	{
-		//dosya aç
-		//geleni dosyaya yazfır
-		// red freele
-		//readline al / yeni red
+		ft_putstr_fd(take, fd);
+		free(take);
+		take = readline("> ");
 	}
-	//take i freele
+	free(take);
+	free(check);
+	close(fd);//close fd yapmalı mıyım
+	change_data_input(str_dup("heredoc"));
+	return (i);
+}
+
+void	change_data_input(char *file)
+{
+	if (g_data->input_file)
+		free (g_data->input_file);
+	g_data->input_file = file;
 }
 
 /* her heredoc için readline al bu readlineları bir fdye at aynı fd üzerine flag ile yaz fd için sıfırdan yazma flagi var onu bul

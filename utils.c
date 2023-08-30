@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:46 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 11:18:45 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 11:53:19 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,15 +153,18 @@ int	strmatch(const char *s1, const char *s2)
 	return (0);
 }
 
-char	*put_pipe(const char *s1)
+char	*str_dup(const char *s1)
 {
 	char	*cp;
+	int	i;
 
+	i = -1;
 	cp = malloc((ft_strlen(s1) + 1) * sizeof(char));
 	if (cp == NULL)
 		return (0);
-	cp[0] = '|';
-	cp[1] = '\0';
+	while (s1[++i])
+		cp[i] = s1[i];
+	cp[i] = '\0';
 	return(cp);
 }
 
@@ -176,6 +179,8 @@ int	ft_strcmp(const char *s1, const char *s2)
 	unsigned int	i;
 
 	i = 0;
+	if (!s1 || !*s1)
+		return 1;
 	if (ft_strlen(s1) != ft_strlen(s2))
 		return(1);
 	while (s1[i] == s2[i])
@@ -183,4 +188,18 @@ int	ft_strcmp(const char *s1, const char *s2)
 	if (!s1[i] && !s2[i])
 		return (0);
 	return (1);
+}
+
+void	ft_putstr_fd(char *s, int fd)
+{
+	int	i;
+
+	if (!s)
+		return ;
+	i = 0;
+	while (s[i])
+	{
+		write(fd, &s[i], 1);
+		i++;
+	}
 }
