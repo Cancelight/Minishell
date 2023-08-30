@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 14:40:14 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 16:26:11 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,6 @@ int			ft_strcmp(char *s1, char *s2);
 void		ft_putstr_fd(char *s, int fd);
 void		change_data_input(char *file);
 void		ft_putendl_fd(char *s, int fd);
+int			input_redirection(char *str, int i);
 
 #endif

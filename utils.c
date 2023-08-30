@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:46 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 14:51:42 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 16:16:32 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,4 +208,25 @@ void	ft_putendl_fd(char *s, int fd)
 {
 	ft_putstr_fd(s, fd);
 	write(fd, "\n", 1);
+}
+
+int	search(char *detect, char *found)
+{
+	int	i;
+	int	a;
+
+	i = -1;
+	while(detect[++i])
+	{
+		while (detect[i] && found[a] && detect[i] == found[a])
+		{
+			i++;
+			a++;
+		}
+		if (found[a] == '\0')
+			return (1);
+		else if (a > 0)
+			a = 0;
+	}
+	return(0);
 }
