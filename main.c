@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 18:56:19 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 20:06:06 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	nav_redirection(t_parse *parse)
 			parse->content[strrchar(parse->content, '<') - 1] == '<')
 			change_data_input("heredoc");
 		parse = parse->next;
-		printf("input file = %s\n", g_data->input_file);
 	}
 }
 
@@ -64,7 +63,6 @@ int	input_redirection(char *str, int i)
 	while (str[i] == 32)
 		i++;
 	n = i;
-	printf("str:%s\n", &str[i]);
 	while (str[i] && str[i] != '>' && str[i] != '<' && str[i] != 32)
 		i++;
 	file = substr(str, n, i - n);
@@ -73,6 +71,8 @@ int	input_redirection(char *str, int i)
 		exit_program("No such file or directory", -1);
 	if (strchar(&str[i], '<') == -1)
 		change_data_input(file);
+	else
+		free(file);
 	close(fd);
 	return (--i);
 }

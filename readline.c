@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 18:21:50 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 18:54:09 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 19:53:33 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	reading_line(void)
 				g_data->parse = g_data->parse->next;
 			}*/
 			clear_lst(&(g_data->parse));
+			system("leaks minishell");
 		}
 	}
 }

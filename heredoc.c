@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:15:08 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 19:00:00 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 20:06:29 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	heredoc_file(char *str, int i)
 	while (ft_strcmp(take, check))
 	{
 		ft_putendl_fd(take, fd);
-		//free(take);
+		free(take);
 		take = readline("> ");
 	}
 	free(take);
@@ -70,7 +70,9 @@ int	heredoc_file(char *str, int i)
 
 void	change_data_input(char *file)
 {
+	printf("girfim\n");
 	if (g_data->input_file)
 		free (g_data->input_file);
+		printf("input file : %s\n", g_data->input_file);
 	g_data->input_file = file;
 }
