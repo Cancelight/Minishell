@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 13:26:45 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:40:14 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		heredoc_list(t_parse *parse);
 void		heredoc_str(char *str);
 int			search(char *detect, char *found);
 int			heredoc_file(char *str, int i);
-int			ft_strcmp(const char *s1, const char *s2);
+int			ft_strcmp(char *s1, char *s2);
 void		ft_putstr_fd(char *s, int fd);
 void		change_data_input(char *file);
 void		ft_putendl_fd(char *s, int fd);

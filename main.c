@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 13:24:42 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 14:57:39 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	heredoc_str(char *str)
 		else if (str[i] == '"')
 			i = strchar(&str[++i], '"') + 1;
 		else if (str[i] == '<' && str[i + 1] == '<')
-			i = heredoc_file(str, i + 2);
+			i = heredoc_file(str, i + 2) - 1;
 	}
 }
 
