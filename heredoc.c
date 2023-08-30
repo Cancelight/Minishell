@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:15:08 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 16:15:59 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 19:00:00 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int	heredoc_file(char *str, int i)
 	while (ft_strcmp(take, check))
 	{
 		ft_putendl_fd(take, fd);
-		free(take);
+		//free(take);
 		take = readline("> ");
 	}
 	free(take);

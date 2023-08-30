@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 17:53:31 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:56:19 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	nav_redirection(t_parse *parse)
 				i = strchar(&parse->content[++i], '\'') + 1;
 			else if (parse->content[i] == '"')
 				i = strchar(&parse->content[++i], '"') + 1;
-			else if (parse->content[i] == '<' && parse->content[i + 1] != '<')
+			else if (parse->content[i] == '<')
 				i = input_redirection(parse->content, ++i);
 			/*else if (parse->content[i] == '>' && parse->content[i + 1] == '>')
 				i = append_redirection(parse->content, i + 2);
@@ -59,20 +59,21 @@ int	input_redirection(char *str, int i)
 	char *file;
 	int	fd;
 
+	if (str[i] == '<')
+		return (i + 1);
 	while (str[i] == 32)
 		i++;
 	n = i;
+	printf("str:%s\n", &str[i]);
 	while (str[i] && str[i] != '>' && str[i] != '<' && str[i] != 32)
 		i++;
 	file = substr(str, n, i - n);
-	printf("file:%s\n", str + i);
 	fd = open(file, O_RDONLY, 0777);
 	if (fd == -1)
 		exit_program("No such file or directory", -1);
 	if (strchar(&str[i], '<') == -1)
 		change_data_input(file);
 	close(fd);
-	printf("str:%s\n", str);
 	return (--i);
 }
 

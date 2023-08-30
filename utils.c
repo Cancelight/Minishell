@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:46 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 17:39:30 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 18:52:54 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,8 +216,9 @@ int	search(char *detect, char *found)
 	int	a;
 
 	i = -1;
-	while(detect[++i])
+	while (detect[++i])
 	{
+		a = 0;
 		while (detect[i] && found[a] && detect[i] == found[a])
 		{
 			i++;
@@ -225,8 +226,6 @@ int	search(char *detect, char *found)
 		}
 		if (found[a] == '\0')
 			return (1);
-		else if (a > 0)
-			a = 0;
 	}
 	return(0);
 }
