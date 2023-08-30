@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 20:06:06 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 20:50:51 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	main(int argc, char **argv, char **envp)
 	g_data->argc = argc;
 	g_data->argv = argv;
 	g_data->envp = envp;
+	g_data->parse = NULL;
 	reading_line();
 	signal_function();//şimdilik çalışmıyor projenin ana hatları bitince yazılacak
 }

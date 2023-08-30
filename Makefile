@@ -7,7 +7,7 @@ SRCS = ./main.c \
 		./heredoc.c
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -lreadline
+CFLAGS = -Wall -Werror -Wextra -lreadline -fsanitize=address -g
 RM = rm -rf
 LIBC = ar -rcs
 

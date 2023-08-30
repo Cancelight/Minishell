@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:46 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 18:52:54 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 20:49:04 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,12 @@ t_parse	*lstlast(t_parse *lst)
 {
 	if (lst != NULL)
 	{
+		printf("%p\n", lst);
 		while (lst -> next != NULL)
+		{
 			lst = lst -> next;
+		}
+
 		return (lst);
 	}
 	return (0);
