@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 14:47:20 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 13:10:24 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:20:28 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	syntax_check(t_parse *parse)
 	while(temp != NULL)
 	{
 		if (multiple_pipes(temp))
-			exit_program(-1);//değiştirilecek exit fonksiyonu yazılabilir
+			exit_program("Error", -1);//değiştirilecek exit fonksiyonu yazılabilir
 		else if (strmatch(temp->content, "<>"))
 			pre_trim(temp->content);
 		temp = temp->next;
@@ -72,13 +72,13 @@ int syntax_redirection(char *str, char symbol)
 	{
 		i++;
 		if (str[i] == '\0' || str[i] == rev_sym)
-			exit_program(-1);
+			exit_program("Error", -1);
 		if (str[i] == symbol)
 			i++;
 		while (str[i] && str[i] == 32)
 			i++;
 		if (str[i] == '\0' || str[i] == symbol || str[i] == rev_sym)
-			exit_program(-1);
+			exit_program("Error", -1);
 	}
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 16:26:11 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:45:02 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int			strchar(char *s, int c);
 int			strmatch(const char *s1, const char *s2);
 void		clear_lst(t_parse **lst);
 char		*str_dup(const char *s1);
-void		exit_program(int i);
+void		exit_program(char *str, int i);
 void		nav_redirection(t_parse *parse);
 void		heredoc_list(t_parse *parse);
 void		heredoc_str(char *str);
@@ -79,5 +79,6 @@ void		ft_putstr_fd(char *s, int fd);
 void		change_data_input(char *file);
 void		ft_putendl_fd(char *s, int fd);
 int			input_redirection(char *str, int i);
+int			strrchar(char *s, int c);
 
 #endif

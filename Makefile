@@ -3,7 +3,8 @@ SRCS = ./main.c \
 		./signal.c \
 		./parser.c \
 		./syntax_control.c \
-		./readline.c
+		./readline.c \
+		./heredoc.c
 NAME = minishell
 CC = gcc
 CFLAGS = -Wall -Werror -Wextra -lreadline

@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:46 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 16:16:32 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 17:39:30 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,9 +168,9 @@ char	*str_dup(const char *s1)
 	return(cp);
 }
 
-void	exit_program(int i)
+void	exit_program(char *str, int i)
 {
-	printf("Error\n");
+	printf("%s\n", str);
 	exit(i);
 }
 
@@ -229,4 +229,18 @@ int	search(char *detect, char *found)
 			a = 0;
 	}
 	return(0);
+}
+
+int	strrchar(char *s, int c)
+{
+	int	len;
+
+	len = ft_strlen(s);
+	while (len >= 0)
+	{
+		if (s[len] == (char)c)
+			return (len);
+		len--;
+	}
+	return (-1);
 }
