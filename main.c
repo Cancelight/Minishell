@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 12:02:29 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 13:24:42 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 
 void	nav_redirection(t_parse *parse)
 {
-	heredoc(parse);
+	heredoc_list(parse);
 }
 
 void	heredoc_list(t_parse *parse)
@@ -39,7 +39,7 @@ void	heredoc_list(t_parse *parse)
 	}
 }
 
-void heredoc_str(char *str)
+void	heredoc_str(char *str)
 {
 	int	i;
 
@@ -72,7 +72,7 @@ int	heredoc_file(char *str, int i)
 	take = readline("> ");
 	while (ft_strcmp(take, check))
 	{
-		ft_putstr_fd(take, fd);
+		ft_putendl_fd(take, fd);
 		free(take);
 		take = readline("> ");
 	}

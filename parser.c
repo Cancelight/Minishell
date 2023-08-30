@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 14:49:00 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 11:53:19 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 13:01:57 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_split(void)
 
 void	addlist_substr(int i, int *n)
 {
-	add_back(&g_data->parse, lstnew(substr(g_data->line, *n, i - *n))); // "||" durumunda bu satıra girecek ama returnlerden dolayı bir şey olmayacak
-	add_back(&g_data->parse, lstnew(str_dup("|"))); //pipetan sonra null gelirse ne olacak ?
+	add_back(&g_data->parse, lstnew(substr(g_data->line, *n, i - *n)));
+	add_back(&g_data->parse, lstnew(str_dup("|")));
 	*n = i + 1;
 }

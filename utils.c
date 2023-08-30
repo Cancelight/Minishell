@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:46 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 11:53:19 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 13:27:30 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,12 +180,12 @@ int	ft_strcmp(const char *s1, const char *s2)
 
 	i = 0;
 	if (!s1 || !*s1)
-		return 1;
+		return (1);
 	if (ft_strlen(s1) != ft_strlen(s2))
-		return(1);
-	while (s1[i] == s2[i])
+		return (1);
+	while ( s2[i] && s1[i] && s1[i] == s2[i])
 		i++;
-	if (!s1[i] && !s2[i])
+	if (s1[i] == '\0' && s2[i] == '\0')
 		return (0);
 	return (1);
 }
@@ -202,4 +202,10 @@ void	ft_putstr_fd(char *s, int fd)
 		write(fd, &s[i], 1);
 		i++;
 	}
+}
+
+void	ft_putendl_fd(char *s, int fd)
+{
+	ft_putstr_fd(s, fd);
+	write(fd, "\n", 1);
 }
