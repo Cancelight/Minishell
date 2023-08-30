@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/29 19:22:07 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 11:19:51 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ char		*put_pipe(const char *s1);
 void		exit_program(int i);
 void		nav_redirection(t_parse *parse);
 void		heredoc_list(t_parse *parse);
-int	ft_strnstr(char *haystack, char *needle, size_t len);
+int			ft_strcmp(const char *s1, const char *s2);
 
 #endif

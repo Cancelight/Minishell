@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:46 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/29 19:03:49 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 11:18:45 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,4 +169,18 @@ void	exit_program(int i)
 {
 	printf("Error\n");
 	exit(i);
+}
+
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (ft_strlen(s1) != ft_strlen(s2))
+		return(1);
+	while (s1[i] == s2[i])
+		i++;
+	if (!s1[i] && !s2[i])
+		return (0);
+	return (1);
 }

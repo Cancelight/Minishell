@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/29 19:58:36 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/08/30 11:22:20 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,54 @@ void	heredoc_list(t_parse *parse)
 	while (parse != NULL)
 	{
 		if (search(parse->content, "<<"))
-			heredoc_str(parse->str)//heredoc ve '<' varsa hangisi input olacak
-		/* her heredoc için readline al bu readlineları bir fdye at aynı fd üzerine flag ile yaz fd için sıfırdan yazma flagi var onu bul
-		heredocın sonuncusunu genel structta olan input dosyasına at
-		input redirectionına geldiğinde ('<') son inputtan sonra heredoc olup olmadığına bak eğer yoksa structtaki input dosyasını değiştir kullanılmasa bile dosya açmayı unutma*/
+			heredoc_str(parse->content);
+		parse = parse->next;
 	}
 }
+
+void heredoc_str(char *str)
+{
+	int	i;
+
+	i = -1;
+	while(str[++i])
+	{
+		if (str[i] == '\'')
+			i = strchar(&str[++i], '\'') + 1;
+		else if (str[i] == '"')
+			i = strchar(&str[++i], '"') + 1;
+		else if (str[i] == '<' && str[i + 1] == '<')
+			i = heredoc_file(str, i);
+}
+
+int	heredoc_file(char *str, int i)
+{
+	int		n;
+	char	*take;
+	char	*red;
+	int		fd;
+
+	i += 2;
+	while (str[i] == 32)
+		i++;
+	n = i;
+	while (str[i] && str[i] != '>' && str[i] != '<' && str[i] != 32)
+		i++;
+	take = substr(str, n, i - n);
+	red = readline("> ");
+	while (ft_strcmp(red, take))
+	{
+		//dosya aç
+		//geleni dosyaya yazfır
+		// red freele
+		//readline al / yeni red
+	}
+	//take i freele
+}
+
+/* her heredoc için readline al bu readlineları bir fdye at aynı fd üzerine flag ile yaz fd için sıfırdan yazma flagi var onu bul
+		heredocın sonuncusunu genel structta olan input dosyasına at
+		input redirectionına geldiğinde ('<') son inputtan sonra heredoc olup olmadığına bak eğer yoksa structtaki input dosyasını değiştir kullanılmasa bile dosya açmayı unutma */
 
 int	search(char *detect, char *found)
 {
