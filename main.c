@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/20 13:26:10 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/20 16:09:40 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	nav_redirection(t_parse *parse)
 	while (parse != NULL)
 	{
 		i = -1;
-		while(parse->content[++i])
+		while (parse->content[++i])
 		{
 			if (parse->content[i] == '\'')
 				i = strchar(&parse->content[++i], '\'') + 1;
@@ -49,8 +49,37 @@ void	nav_redirection(t_parse *parse)
 		if (strrchar(parse->content, '<') != 0 && \
 			parse->content[strrchar(parse->content, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol appendse inputu dğeiştiriyor
 			change_data_input("heredoc");
+		parse->content = remove_redirection(parse->content);
 		parse = parse->next;
 	}
 }
 
+char	*remove_redirection(char *str)
+{
+	int		i;
+	int		n;
+	char	*new;
 
+	new = NULL;
+	while (str[i])
+	{
+		while(str[i] && str[i] == 32)
+			i++;
+		if (str[i] == '<' || str[i] == '>')
+		{
+			while (str[i] == 32 || str[i] == '<' || str[i] == '>')
+				i++;
+			while (str[i] && str[i] != 32)
+				i++;
+		}
+		else
+		{
+			n = i;
+			while (str[i] && str[i] != '<' && str[i] != '>')
+				i++;
+			new = strjoin(new, substr(str, n, i - n));
+		}
+	}
+	free(str);
+	return (new);
+}
