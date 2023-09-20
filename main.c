@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 20:50:51 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/20 13:26:10 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,43 +41,16 @@ void	nav_redirection(t_parse *parse)
 				i = strchar(&parse->content[++i], '"') + 1;
 			else if (parse->content[i] == '<')
 				i = input_redirection(parse->content, ++i);
-			/*else if (parse->content[i] == '>' && parse->content[i + 1] == '>')
+			else if (parse->content[i] == '>' && parse->content[i + 1] == '>')
 				i = append_redirection(parse->content, i + 2);
 			else if (parse->content[i] == '>' && parse->content[i + 1] != '>')
-				i = output_redirection(parse->content, ++i);*/
+				i = output_redirection(parse->content, ++i);
 		}
 		if (strrchar(parse->content, '<') != 0 && \
-			parse->content[strrchar(parse->content, '<') - 1] == '<')
+			parse->content[strrchar(parse->content, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol appendse inputu dğeiştiriyor
 			change_data_input("heredoc");
 		parse = parse->next;
 	}
 }
 
-int	input_redirection(char *str, int i)
-{
-	int	n;
-	char *file;
-	int	fd;
 
-	if (str[i] == '<')
-		return (i + 1);
-	while (str[i] == 32)
-		i++;
-	n = i;
-	while (str[i] && str[i] != '>' && str[i] != '<' && str[i] != 32)
-		i++;
-	file = substr(str, n, i - n);
-	fd = open(file, O_RDONLY, 0777);
-	if (fd == -1)
-		exit_program("No such file or directory", -1);
-	if (strchar(&str[i], '<') == -1)
-		change_data_input(file);
-	else
-		free(file);
-	close(fd);
-	return (--i);
-}
-
-/* her heredoc için readline al bu readlineları bir fdye at aynı fd üzerine flag ile yaz fd için sıfırdan yazma flagi var onu bul
-		heredocın sonuncusunu genel structta olan input dosyasına at
-		input redirectionına geldiğinde ('<') son inputtan sonra heredoc olup olmadığına bak eğer yoksa structtaki input dosyasını değiştir kullanılmasa bile dosya açmayı unutma */

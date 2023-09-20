@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:15:08 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 20:44:37 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/20 13:19:40 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ int	heredoc_file(char *str, int i)
 
 void	change_data_input(char *file)
 {
-	printf("freelenecek:%s\n", g_data->input_file);
 	if (g_data->input_file)
 		free (g_data->input_file);
 	g_data->input_file = file;
