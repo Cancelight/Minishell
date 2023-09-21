@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/21 15:53:12 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:53:08 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,24 +50,24 @@ void	nav_redirection(t_parse *parse)
 		if (strrchar(parse->content, '<') != 0 && \
 			parse->content[strrchar(parse->content, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol appendse inputu dğeiştiriyor
 			change_data_input("heredoc");
-		parse->content = remove_redirection(parse->content);
+		parse->content = remove_redirection(parse->content, NULL);
 		printf("silinmiş content: %s\n", parse->content);
 		parse = parse->next;
 	}
 	printf("input: %s, output: %s\n", g_data->input_file, g_data->output_file);
 }
 
-char	*remove_redirection(char *str)
+//ls -a >>b grep -v | ls -l
+
+char	*remove_redirection(char *str, char *new)
 {
 	int		i;
 	int		n;
-	char	*new;
 
-	new = NULL;
 	i = 0;
 	while (str[i])
 	{
-		while(str[i] && str[i] == 32)
+		while (str[i] && str[i] == 32)
 			i++;
 		if (str[i] == '<' || str[i] == '>')
 		{
@@ -81,7 +81,7 @@ char	*remove_redirection(char *str)
 			n = i;
 			while (str[i] && str[i] != '<' && str[i] != '>')
 				i++;
-			new = strjoin(new, substr(str, n, i - n));
+			new = s2_strjoin(new, substr(str, n, i - n));
 		}
 	}
 	free(str);

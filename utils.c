@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:46 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/21 15:52:34 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/21 16:46:05 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,32 @@ char	*strjoin(char *s1, char *s2)//s1 freelendi
 		ptr[i++] = *s2++;
 	ptr[i] = '\0';
 	free(s1);
+	return (ptr);
+}
+
+char	*s2_strjoin(char *s1, char *s2)
+{
+	char	*ptr;
+	int		i;
+	int		a;
+
+	a = 0;
+	i = -1;
+	if (!s1)
+	{
+		s1 = malloc(1 * sizeof(char));
+		s1[0] = '\0';
+	}
+	ptr = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
+	if (ptr == NULL)
+		return (NULL);
+	while (s1 && s1[++i] != '\0')
+		ptr[i] = s1[i];
+	while (s2 && s2[a] != '\0')
+		ptr[i++] = s2[a++];
+	ptr[i] = '\0';
+	free(s1);
+	free(s2);
 	return (ptr);
 }
 
