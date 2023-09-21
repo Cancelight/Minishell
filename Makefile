@@ -7,10 +7,10 @@ SRCS = ./main.c \
 		./heredoc.c \
 		./input_redirec.c \
 		./append_redirec.c \
-		./output_redirec.c 
+		./output_redirec.c
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -lreadline
+CFLAGS = -Wall -Werror -Wextra -lreadline -g
 RM = rm -rf
 
 all: ${NAME}

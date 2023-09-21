@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:22:28 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/20 13:23:29 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/21 19:00:54 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ int	append_redirection(char *str, int i)
 
 void	change_data_output(char *file)
 {
+	printf("free output_file \n");
 	if (g_data->output_file)
 		free (g_data->output_file);
 	g_data->output_file = file;

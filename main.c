@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/21 16:53:08 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/21 19:11:45 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	nav_redirection(t_parse *parse)
 		printf("original content: %s\n", parse->content);
 		if (strrchar(parse->content, '<') != 0 && \
 			parse->content[strrchar(parse->content, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol appendse inputu dğeiştiriyor
-			change_data_input("heredoc");
+			change_data_input(str_dup("heredoc"));
+		printf("aa\n");
 		parse->content = remove_redirection(parse->content, NULL);
 		printf("silinmiş content: %s\n", parse->content);
 		parse = parse->next;
