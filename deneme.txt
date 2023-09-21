@@ -1,3 +1,0 @@
-< utils.c <main.c|<signal.c << abc |<main.c << abc fnjhweıo abort (son pipe olmadığında çalışıyor)
-< utils.c <main.c <signal.c << abc |<main.c << abc fnjhweıo
-< utils.c <signal.c | << a < readline.c problem yok

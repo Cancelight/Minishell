@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/20 16:09:40 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/21 15:53:12 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,15 @@ void	nav_redirection(t_parse *parse)
 			else if (parse->content[i] == '>' && parse->content[i + 1] != '>')
 				i = output_redirection(parse->content, ++i);
 		}
+		printf("original content: %s\n", parse->content);
 		if (strrchar(parse->content, '<') != 0 && \
 			parse->content[strrchar(parse->content, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol appendse inputu dğeiştiriyor
 			change_data_input("heredoc");
 		parse->content = remove_redirection(parse->content);
+		printf("silinmiş content: %s\n", parse->content);
 		parse = parse->next;
 	}
+	printf("input: %s, output: %s\n", g_data->input_file, g_data->output_file);
 }
 
 char	*remove_redirection(char *str)
@@ -61,6 +64,7 @@ char	*remove_redirection(char *str)
 	char	*new;
 
 	new = NULL;
+	i = 0;
 	while (str[i])
 	{
 		while(str[i] && str[i] == 32)

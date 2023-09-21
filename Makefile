@@ -4,22 +4,24 @@ SRCS = ./main.c \
 		./parser.c \
 		./syntax_control.c \
 		./readline.c \
-		./heredoc.c
+		./heredoc.c \
+		./input_redirec.c \
+		./append_redirec.c \
+		./output_redirec.c 
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -lreadline -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra -lreadline
 RM = rm -rf
-LIBC = ar -rcs
 
 all: ${NAME}
 
 $(NAME): $(SRCS)
-	@gcc $(CFLAGS) $(SRCS) -o $(NAME)
+	gcc $(CFLAGS) $(SRCS) -o $(NAME)
 
 clean:
 
 fclean:
-	@${RM} $(NAME)
+	${RM} $(NAME)
 
 re: fclean all
 
