@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 14:47:20 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 17:20:28 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/21 19:53:17 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void	pre_trim(char *find)
 	while(find[++i])
 	{
 		if (find[i] == '\'')
-			i = strchar(&find[++i], '\'') + 1;
+			i += strchar(&find[i + 1], '\'') + 2;
 		else if (find[i] == '"')
-			i = strchar(&find[++i], '"') + 1;
+			i += strchar(&(find[i + 1]), '"') + 2;
 		else if (find[i] == '<')
 			i += syntax_redirection(&find[i], '<') + 1;
 		else if (find[i] == '>')

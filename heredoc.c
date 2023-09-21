@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:15:08 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/21 19:17:40 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/21 19:58:10 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	heredoc_str(char *str)
 	while (str[++i])
 	{
 		if (str[i] == '\'')
-			i = strchar(&str[++i], '\'') + 1;//tırnak index hatası
+			i += strchar(&str[i + 1], '\'') + 2;//tırnak index hatası
 		else if (str[i] == '"')
-			i = strchar(&str[++i], '"') + 1;
+			i += strchar(&str[i + 1], '"') + 2;
 		else if (str[i] == '<' && str[i + 1] == '<')
 			i = heredoc_file(str, i + 2) - 1;
 	}
@@ -58,17 +58,13 @@ int	heredoc_file(char *str, int i)
 	while (ft_strcmp(take, check))
 	{
 		ft_putendl_fd(take, fd);
-		printf("take while içi\n");
 		free(take);
 		take = readline("> ");
 	}
-	printf("take: %s\n", take);
 	free(take);
-	printf("%s\n",check);
 	free(check);
 	close(fd);//close fd yapmalı mıyım
 	change_data_input(str_dup("heredoc"));
-	printf("çıktım bro \n");
 	return (i);
 }
 

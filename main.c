@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/21 19:11:45 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/21 19:58:16 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	nav_redirection(t_parse *parse)
 		while (parse->content[++i])
 		{
 			if (parse->content[i] == '\'')
-				i = strchar(&parse->content[++i], '\'') + 1;
+				i += strchar(&parse->content[i + 1], '\'') + 2;
 			else if (parse->content[i] == '"')
-				i = strchar(&parse->content[++i], '"') + 1;
+				i += strchar(&parse->content[i + 1], '"') + 2;
 			else if (parse->content[i] == '<')
 				i = input_redirection(parse->content, ++i);
 			else if (parse->content[i] == '>' && parse->content[i + 1] == '>')
@@ -50,7 +50,6 @@ void	nav_redirection(t_parse *parse)
 		if (strrchar(parse->content, '<') != 0 && \
 			parse->content[strrchar(parse->content, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol appendse inputu dğeiştiriyor
 			change_data_input(str_dup("heredoc"));
-		printf("aa\n");
 		parse->content = remove_redirection(parse->content, NULL);
 		printf("silinmiş content: %s\n", parse->content);
 		parse = parse->next;
