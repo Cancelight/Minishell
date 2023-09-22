@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 14:49:00 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/22 18:39:05 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/22 19:37:13 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	parser(void)
 {
 	g_data->sng = 0;//single quote için
 	g_data->dbl = 0;//double quote için
-	ft_split();
+	ft_split(0, -1);
 /*	while (g_data->parse != NULL) //düzgün parse yapıp yapmama durumunu kontrol için, leake neden olan kısım bu
 	{
 		printf("content: %s\n", g_data->parse->content);
@@ -26,13 +26,8 @@ void	parser(void)
 	}*/
 }
 
-void	ft_split(void)
+void	ft_split(int n, int i)
 {
-	int	i;
-	int	n;
-
-	i = -1;
-	n = 0;
 	while (g_data->line[++i])
 	{
 		if (g_data->line[i] == '\'' && !(g_data->dbl % 2))//double quote açık değilse arttırılacak "bvjhwbshje'gjheuır" gibi durumlardan kaçınmak için
@@ -51,9 +46,9 @@ void	ft_split(void)
 					lstnew(v2_substr(strjoin(g_data->line, "\""), n, i - n + 2)));//freeleme konusunda sıkıntı olabilir
 			else
 				add_back(&g_data->parse, lstnew(substr(g_data->line, n, i - n + 1)));
+			break;
 		}
 	}
-	system("leaks minishell");
 }
 
 void	addlist_substr(int i, int *n)
