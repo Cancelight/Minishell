@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:15:08 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/21 19:58:10 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/22 20:32:05 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,13 @@ void	heredoc_str(char *str)
 
 int	heredoc_file(char *str, int i)
 {
-	int		n;
 	char	*check;
 	char	*take;
 	int		fd;
 
 	while (str[i] == 32)
 		i++;
-	n = i;
-	while (str[i] && str[i] != '>' && str[i] != '<' && str[i] != 32)
-		i++;
-	check = substr(str, n, i - n);
+	check = trim_quote(str, i);
 	fd = open("heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
 	take = readline("> ");
 	while (ft_strcmp(take, check))

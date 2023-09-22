@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:46 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/22 18:40:31 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/22 20:36:20 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ int	ft_strlen(const char *s)
 {
 	int	i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[i])
 		i++;
@@ -228,6 +230,8 @@ int	ft_strcmp(char *s1, char *s2)
 	unsigned int	i;
 
 	i = 0;
+	if (ft_strlen(s1) == 0 && ft_strlen(s2) == 0)
+		return (0);
 	if (!s1 || !*s1)
 		return (1);
 	if (ft_strlen(s1) != ft_strlen(s2))

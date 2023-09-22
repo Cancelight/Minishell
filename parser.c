@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 14:49:00 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/22 19:37:13 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/22 20:43:59 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,30 @@ void	addlist_substr(int i, int *n)
 	add_back(&g_data->parse, lstnew(substr(g_data->line, *n, i - *n)));
 	add_back(&g_data->parse, lstnew(str_dup("|")));
 	*n = i + 1;
+}
+
+char	*trim_quote(char *str, int i)
+{
+	int		n;
+	char	c;
+
+	if (str[i] == '"' || str[i] == '\'')
+		c = str[i];
+	else
+		c = 0;
+	n = i;
+	if (c != 0)
+	{
+		n++;
+		if (str[++i] == c)
+			return (NULL);
+		while (str[i] != c)
+			i++;
+	}
+	else
+	{
+		while(str[i] && str[i] != '>' && str[i] != '<' && str[i] != 32)
+			i++;
+	}
+	return (substr(str, n, i - n));
 }
