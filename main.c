@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/21 19:58:16 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/22 13:08:24 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ void	nav_redirection(t_parse *parse)
 	}
 	printf("input: %s, output: %s\n", g_data->input_file, g_data->output_file);
 }
-
-//ls -a >>b grep -v | ls -l
 
 char	*remove_redirection(char *str, char *new)
 {
