@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 14:49:00 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/08/30 18:20:11 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:39:05 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	ft_split(void)
 
 	i = -1;
 	n = 0;
-
 	while (g_data->line[++i])
 	{
 		if (g_data->line[i] == '\'' && !(g_data->dbl % 2))//double quote açık değilse arttırılacak "bvjhwbshje'gjheuır" gibi durumlardan kaçınmak için
@@ -46,14 +45,15 @@ void	ft_split(void)
 		{
 			if (g_data->sng % 2)
 				add_back(&g_data->parse, \
-					lstnew(substr(strjoin(g_data->line, "'"), n, i - n + 2)));
+					lstnew(v2_substr(strjoin(g_data->line, "'"), n, i - n + 2)));
 			else if (g_data->dbl % 2)
 				add_back(&g_data->parse, \
-					lstnew(substr(strjoin(g_data->line, "\""), n, i - n + 2)));
+					lstnew(v2_substr(strjoin(g_data->line, "\""), n, i - n + 2)));//freeleme konusunda sıkıntı olabilir
 			else
 				add_back(&g_data->parse, lstnew(substr(g_data->line, n, i - n + 1)));
 		}
 	}
+	system("leaks minishell");
 }
 
 void	addlist_substr(int i, int *n)

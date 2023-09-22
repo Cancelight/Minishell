@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/22 13:08:24 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/22 14:33:15 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int	main(int argc, char **argv, char **envp)
 	reading_line();
 	signal_function();//şimdilik çalışmıyor projenin ana hatları bitince yazılacak
 }
+
+//ls "welp" >>w>>  d  >> k | "huhgehr" <<ab | "welp
 
 void	nav_redirection(t_parse *parse)
 {
@@ -46,6 +48,7 @@ void	nav_redirection(t_parse *parse)
 			else if (parse->content[i] == '>' && parse->content[i + 1] != '>')
 				i = output_redirection(parse->content, ++i);
 		}
+		printf("-----------------------------\n");
 		printf("original content: %s\n", parse->content);
 		if (strrchar(parse->content, '<') != 0 && \
 			parse->content[strrchar(parse->content, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol appendse inputu dğeiştiriyor
@@ -55,6 +58,7 @@ void	nav_redirection(t_parse *parse)
 		parse = parse->next;
 	}
 	printf("input: %s, output: %s\n", g_data->input_file, g_data->output_file);
+	printf("-----------------------------\n");
 }
 
 char	*remove_redirection(char *str, char *new)
@@ -69,12 +73,13 @@ char	*remove_redirection(char *str, char *new)
 			i++;
 		if (str[i] == '<' || str[i] == '>')
 		{
+			printf("eee\n");
 			while (str[i] == 32 || str[i] == '<' || str[i] == '>')
 				i++;
 			while (str[i] && str[i] != 32)
 				i++;
 		}
-		else
+		else if (str[i])
 		{
 			n = i;
 			while (str[i] && str[i] != '<' && str[i] != '>')

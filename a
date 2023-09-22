@@ -1,0 +1,17 @@
+Makefile
+a
+append_redirec.c
+deneme.c
+heredoc
+heredoc.c
+input_redirec.c
+lib.h
+main.c
+minishell
+minishell.dSYM
+output_redirec.c
+parser.c
+readline.c
+signal.c
+syntax_control.c
+utils.c

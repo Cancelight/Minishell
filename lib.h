@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/21 18:30:46 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:41:12 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ void	change_data_output(char *file);
 int		output_redirection(char *str, int i);
 char	*remove_redirection(char *str, char *new);
 char	*s2_strjoin(char *s1, char *s2);
+char	*v2_substr(char *s, int start, int len);
 
 #endif

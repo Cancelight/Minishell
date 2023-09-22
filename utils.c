@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:46 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/21 16:46:05 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:40:31 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,29 @@ char	*substr(char const *s, int start, int len)
 	while (i < len)
 		ptr[i++] = s[start++];
 	ptr[i] = '\0';
+	return (ptr);
+}
+
+char	*v2_substr(char *s, int start, int len)
+{
+	char	*ptr;
+	int	i;
+
+	if (!s)
+		return (0);
+	if (ft_strlen(s) < start || len <= 0)
+		return (0);
+	if (len > ft_strlen(s) - start)
+		len = ft_strlen(s) - start;
+	i = 0;
+	ptr = malloc((len + 1) * sizeof(char));
+	if (!ptr)
+		return (NULL);
+	ptr[len] = 0;
+	while (i < len)
+		ptr[i++] = s[start++];
+	ptr[i] = '\0';
+	free(s);
 	return (ptr);
 }
 

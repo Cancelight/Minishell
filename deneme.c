@@ -6,11 +6,17 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/21 16:22:39 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/21 16:22:49 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/09/22 18:01:18 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "lib.h"
 int main()
 {
-	
+	char *a=malloc(3);
+	a[0] = 'b';
+	a[1] = 'c';
+	a = a+10;
+	while(1)
+		printf("%c", *(a++));
 }
