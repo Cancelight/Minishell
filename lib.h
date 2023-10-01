@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/22 20:29:00 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/01 18:55:17 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ char	**envp;
 char	*line;
 char	*input_file;
 char	*output_file;
+int		append_flag;
 int		dbl;
 int		sng;
 t_parse	*parse;
@@ -69,7 +70,7 @@ int		strmatch(const char *s1, const char *s2);
 void	clear_lst(t_parse **lst);
 char	*str_dup(const char *s1);
 void	exit_program(char *str, int i);
-void	nav_redirection(t_parse *parse);
+char	**nav_redirection(char *content);
 void	heredoc_list(t_parse *parse);
 void	heredoc_str(char *str);
 int		search(char *detect, char *found);
@@ -81,7 +82,7 @@ void	ft_putendl_fd(char *s, int fd);
 int		input_redirection(char *str, int i);
 int		strrchar(char *s, int c);
 int		append_redirection(char *str, int i);
-void	change_data_output(char *file);
+void	change_data_output(char *file, int append_flag);
 int		output_redirection(char *str, int i);
 char	*remove_redirection(char *str, char *new);
 char	*s2_strjoin(char *s1, char *s2);

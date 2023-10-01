@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:26:15 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/22 20:51:20 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/01 15:41:25 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	output_redirection(char *str, int i)
 	if (fd == -1)
 		exit_program("Fd Error", -1);
 	if (strchar(&str[i], '>') == -1)
-		change_data_output(file);
+		change_data_output(file, 0);
 	else
 		free(file);
 	close(fd);

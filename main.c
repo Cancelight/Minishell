@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/22 14:33:15 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/01 18:58:28 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,23 @@ int	main(int argc, char **argv, char **envp)
 	g_data->argc = argc;
 	g_data->argv = argv;
 	g_data->envp = envp;
+	g_data->append_flag = -1;
+	g_data->input_file = NULL;
+	g_data->output_file = NULL;
+	g_data->line = NULL;
 	g_data->parse = NULL;
 	reading_line();
-	signal_function();//şimdilik çalışmıyor projenin ana hatları bitince yazılacak
+	signal_function();//şimdilik çalışmıyor proje bitince yazılacak
 }
-
-//ls "welp" >>w>>  d  >> k | "huhgehr" <<ab | "welp
 
 void	nav_redirection(t_parse *parse)
 {
 	int	i;
 
-	heredoc_list(parse);
 	while (parse != NULL)
 	{
 		i = -1;
-		while (parse->content[++i])
+		while (parse->content[++i] )
 		{
 			if (parse->content[i] == '\'')
 				i += strchar(&parse->content[i + 1], '\'') + 2;
@@ -48,17 +49,12 @@ void	nav_redirection(t_parse *parse)
 			else if (parse->content[i] == '>' && parse->content[i + 1] != '>')
 				i = output_redirection(parse->content, ++i);
 		}
-		printf("-----------------------------\n");
-		printf("original content: %s\n", parse->content);
 		if (strrchar(parse->content, '<') != 0 && \
-			parse->content[strrchar(parse->content, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol appendse inputu dğeiştiriyor
+			parse->content[strrchar(parse->content, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol heredocsa inputu dğeiştiriyor
 			change_data_input(str_dup("heredoc"));
 		parse->content = remove_redirection(parse->content, NULL);
-		printf("silinmiş content: %s\n", parse->content);
-		parse = parse->next;
+		return (libft_split(parse->content));
 	}
-	printf("input: %s, output: %s\n", g_data->input_file, g_data->output_file);
-	printf("-----------------------------\n");
 }
 
 char	*remove_redirection(char *str, char *new)
