@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/01 20:20:03 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/01 20:29:25 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,6 @@ char	*s2_strjoin(char *s1, char *s2);
 char	*v2_substr(char *s, int start, int len);
 char	*trim_quote(char *str, int i);
 void	duplication(char *input, char *output);
+char	**libft_split(char *s, char c);
 
 #endif

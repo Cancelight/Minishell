@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 18:21:50 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/01 20:20:40 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/01 20:55:53 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,30 @@ void	reading_line(void)
 
 			//redirectionı kaldırılmış ve double arraye çevirilmiş halidir kullanım while örneği:
 			//(parse exec kısmı bittikten sonra freeleniyor, free yazmana gerek yok).
-			while (g_data->parse != NULL)
-			{
-				char *output;
-				char *input;
-				char **command_line;
-				if (g_data->parse->content[0] != '|') //pipelar direkt atlanabilir
-					command_line = nav_redirection(g_data->parse->content);
-				output = g_data->output_file;
-				input = g_data->input_file;
-				g_data->parse = g_data->parse->next;
-				g_data->append_flag = -1;
-			}
+				while (g_data->parse != NULL)
+				{
+					char *output;
+					char *input;
+					char **command_line;
+					if (g_data->parse->content[0] != '|') //pipelar direkt atlanabilir
+					{
+						command_line = nav_redirection(g_data->parse->content);
+					//system("leaks minishell");
+						output = g_data->output_file;//bunları yeniden atmak yerine fonksiyona atabilirsin sadece daha net görünsün diye variable'a attım
+						input = g_data->input_file;
+						duplication(input, output);
+						printf("input: %s, output: %s\n", g_data->input_file, g_data->output_file);
+						write(0, "heyy", 5);
+						write(1, "dude", 5);
+					}
+					g_data->parse = g_data->parse->next;
+					g_data->append_flag = -1;
+				}
 			//buradan itibaren execten sonra çalışacak genel freeleme ve yeni komut line alma işlemi süreci başlıyor
 			if (!(g_data->sng % 2) && !(g_data->dbl % 2))
 				free(g_data->line);
 			clear_lst(&(g_data->parse));
-			system("leaks minishell");
+			//system("leaks minishell");
 		}
 	}
 }

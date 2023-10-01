@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/01 20:23:31 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/01 20:51:52 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **envp)
 	signal_function();//şimdilik çalışmıyor proje bitince yazılacak
 }
 
-char	nav_redirection(char *content)
+char	**nav_redirection(char *content)
 {
 	int	i;
 
@@ -51,7 +51,7 @@ char	nav_redirection(char *content)
 		content[strrchar(content, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol heredocsa inputu dğeiştiriyor
 		change_data_input(str_dup("heredoc"));
 	content = remove_redirection(content, NULL);
-	return (libft_split(content));
+	return (libft_split(content, 32));
 }
 
 char	*remove_redirection(char *str, char *new)
@@ -66,7 +66,6 @@ char	*remove_redirection(char *str, char *new)
 			i++;
 		if (str[i] == '<' || str[i] == '>')
 		{
-			printf("eee\n");
 			while (str[i] == 32 || str[i] == '<' || str[i] == '>')
 				i++;
 			while (str[i] && str[i] != 32)
