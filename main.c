@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/01 18:58:28 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/01 19:02:35 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,32 +29,29 @@ int	main(int argc, char **argv, char **envp)
 	signal_function();//şimdilik çalışmıyor proje bitince yazılacak
 }
 
-void	nav_redirection(t_parse *parse)
+char	nav_redirection(char *content)
 {
 	int	i;
 
-	while (parse != NULL)
+	i = -1;
+	while (content[++i] )
 	{
-		i = -1;
-		while (parse->content[++i] )
-		{
-			if (parse->content[i] == '\'')
-				i += strchar(&parse->content[i + 1], '\'') + 2;
-			else if (parse->content[i] == '"')
-				i += strchar(&parse->content[i + 1], '"') + 2;
-			else if (parse->content[i] == '<')
-				i = input_redirection(parse->content, ++i);
-			else if (parse->content[i] == '>' && parse->content[i + 1] == '>')
-				i = append_redirection(parse->content, i + 2);
-			else if (parse->content[i] == '>' && parse->content[i + 1] != '>')
-				i = output_redirection(parse->content, ++i);
-		}
-		if (strrchar(parse->content, '<') != 0 && \
-			parse->content[strrchar(parse->content, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol heredocsa inputu dğeiştiriyor
-			change_data_input(str_dup("heredoc"));
-		parse->content = remove_redirection(parse->content, NULL);
-		return (libft_split(parse->content));
+		if (content[i] == '\'')
+			i += strchar(&content[i + 1], '\'') + 2;
+		else if (content[i] == '"')
+			i += strchar(&content[i + 1], '"') + 2;
+		else if (content[i] == '<')
+			i = input_redirection(content, ++i);
+		else if (content[i] == '>' && content[i + 1] == '>')
+			i = append_redirection(content, i + 2);
+		else if (content[i] == '>' && content[i + 1] != '>')
+			i = output_redirection(content, ++i);
 	}
+	if (strrchar(content, '<') != 0 && \
+		content[strrchar(content, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol heredocsa inputu dğeiştiriyor
+		change_data_input(str_dup("heredoc"));
+	content = remove_redirection(content, NULL);
+	return (libft_split(content));
 }
 
 char	*remove_redirection(char *str, char *new)
