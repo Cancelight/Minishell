@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 18:21:50 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/01 18:44:47 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/01 20:20:40 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	reading_line(void)
 				char *input;
 				char **command_line;
 				if (g_data->parse->content[0] != '|') //pipelar direkt atlanabilir
-					command_line = nav_redirection(g_data->parse);
+					command_line = nav_redirection(g_data->parse->content);
 				output = g_data->output_file;
 				input = g_data->input_file;
 				g_data->parse = g_data->parse->next;
