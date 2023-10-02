@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 13:22:28 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/01 15:04:19 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/02 10:52:52 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	append_redirection(char *str, int i)
 	while (str[i] == 32)
 		i++;
 	file = trim_quote(str, i);
-	fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0777);
+	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0777);
 	if (fd == -1)
 		exit_program("Fd Error", -1);
 	if (strchar(&str[i], '>') == -1)
