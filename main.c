@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/01 20:51:52 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/03 16:42:28 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ int	main(int argc, char **argv, char **envp)
 	g_data->argv = argv;
 	g_data->envp = envp;
 	g_data->append_flag = -1;
-	g_data->input_file = NULL;
-	g_data->output_file = NULL;
+	g_data->input_file = -2;
+	g_data->output_file = -2;
 	g_data->line = NULL;
 	g_data->parse = NULL;
 	reading_line();
@@ -49,7 +49,7 @@ char	**nav_redirection(char *content)
 	}
 	if (strrchar(content, '<') != 0 && \
 		content[strrchar(content, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol heredocsa inputu dğeiştiriyor
-		change_data_input(str_dup("heredoc"));
+		change_data_input(open("heredoc", O_RDWR | O_TRUNC, 0777));
 	content = remove_redirection(content, NULL);
 	return (libft_split(content, 32));
 }

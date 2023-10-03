@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/01 20:29:25 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:15:48 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ int		argc;
 char	**argv;
 char	**envp;
 char	*line;
-char	*input_file;
-char	*output_file;
+int		input_file;
+int		output_file;
 int		append_flag;
+int		heredoc_cnt;
+int		syntax_flag;
 int		dbl;
 int		sng;
 t_parse	*parse;
@@ -77,18 +79,18 @@ int		search(char *detect, char *found);
 int		heredoc_file(char *str, int i);
 int		ft_strcmp(char *s1, char *s2);
 void	ft_putstr_fd(char *s, int fd);
-void	change_data_input(char *file);
+void	change_data_input(int file);
 void	ft_putendl_fd(char *s, int fd);
 int		input_redirection(char *str, int i);
 int		strrchar(char *s, int c);
 int		append_redirection(char *str, int i);
-void	change_data_output(char *file, int append_flag);
+void	change_data_output(int file, int append_flag);
 int		output_redirection(char *str, int i);
 char	*remove_redirection(char *str, char *new);
 char	*s2_strjoin(char *s1, char *s2);
 char	*v2_substr(char *s, int start, int len);
 char	*trim_quote(char *str, int i);
-void	duplication(char *input, char *output);
+void	duplication(int fd_in, int fd_out);
 char	**libft_split(char *s, char c);
 
 #endif

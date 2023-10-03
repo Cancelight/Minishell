@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/29 14:47:20 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/21 19:53:17 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:37:04 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	syntax_check(t_parse *parse)
 	t_parse	*temp;
 
 	temp = parse;
-	while(temp != NULL)
+	while(temp != NULL && g_data->syntax_flag == 0)
 	{
 		if (multiple_pipes(temp))
-			exit_program("Error", -1);//değiştirilecek exit fonksiyonu yazılabilir
+			 g_data->syntax_flag = 1;//değiştirilecek exit fonksiyonu yazılabilir
 		else if (strmatch(temp->content, "<>"))
 			pre_trim(temp->content);
 		temp = temp->next;
@@ -45,7 +45,7 @@ void	pre_trim(char *find)
 	int	i;
 
 	i = -1;
-	while(find[++i])
+	while(find[++i] && g_data->syntax_flag == 0)
 	{
 		if (find[i] == '\'')
 			i += strchar(&find[i + 1], '\'') + 2;
@@ -62,8 +62,10 @@ int syntax_redirection(char *str, char symbol)
 {
 	int		i;
 	char	rev_sym;
+	int		flag;
 
 	i = 0;
+	flag = 0;
 	if (symbol == '<')
 		rev_sym = '>';
 	else
@@ -72,13 +74,19 @@ int syntax_redirection(char *str, char symbol)
 	{
 		i++;
 		if (str[i] == '\0' || str[i] == rev_sym)
-			exit_program("Error", -1);
-		if (str[i] == symbol)
+			g_data->syntax_flag = 1;
+		if (str[i] == symbol && g_data->syntax_flag == 0)
+		{
+			if(symbol == '<')
+				flag = 1;
 			i++;
+		}
 		while (str[i] && str[i] == 32)
 			i++;
 		if (str[i] == '\0' || str[i] == symbol || str[i] == rev_sym)
-			exit_program("Error", -1);
+				g_data->syntax_flag = 1;
+		if (flag == 1 && g_data->syntax_flag == 0)
+			g_data->heredoc_cnt++;
 	}
 	return (i);
 }

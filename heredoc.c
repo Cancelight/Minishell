@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:15:08 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/09/22 20:32:05 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/03 17:58:52 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	heredoc_list(t_parse *parse)
 {
 	while (parse != NULL)
 	{
-		if (search(parse->content, "<<"))
+		if (search(parse->content, "<<") && g_data->heredoc_cnt > 0)
 			heredoc_str(parse->content);
 		parse = parse->next;
 	}
@@ -29,7 +29,7 @@ void	heredoc_str(char *str)
 	int	i;
 
 	i = -1;
-	while (str[++i])
+	while (str[++i] && g_data->heredoc_cnt > 0)
 	{
 		if (str[i] == '\'')
 			i += strchar(&str[i + 1], '\'') + 2;//tırnak index hatası
@@ -49,7 +49,7 @@ int	heredoc_file(char *str, int i)
 	while (str[i] == 32)
 		i++;
 	check = trim_quote(str, i);
-	fd = open("heredoc", O_WRONLY | O_CREAT | O_TRUNC, 0777);
+	fd = open("heredoc", O_RDWR | O_CREAT | O_TRUNC, 0777);
 	take = readline("> ");
 	while (ft_strcmp(take, check))
 	{
@@ -59,14 +59,17 @@ int	heredoc_file(char *str, int i)
 	}
 	free(take);
 	free(check);
-	close(fd);//close fd yapmalı mıyım
-	change_data_input(str_dup("heredoc"));
+	close (fd);
+	change_data_input(fd);
+	g_data->heredoc_cnt--;
 	return (i);
 }
 
-void	change_data_input(char *file)
+void	change_data_input(int file)
 {
-	if (g_data->input_file)
-		free (g_data->input_file);
+	if (g_data->input_file == -1 || file == -1)
+		exit_program("Fd Error.", -1);
+	if (g_data->input_file >= 0)
+		close(file);
 	g_data->input_file = file;
 }
