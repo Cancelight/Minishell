@@ -11,7 +11,7 @@ SRCS = ./main.c \
 		./duplicate.c
 NAME = minishell
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -lreadline -g
+CFLAGS =  -lreadline -g
 RM = rm -rf
 
 all: ${NAME}

@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:46 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/01 20:30:28 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/03 19:34:36 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,8 @@ char	*str_dup(const char *s1)
 
 void	exit_program(char *str, int i)
 {
-	printf("%s\n", str);
+	write(2, str, strlen(str));
+	write(2, "\n", 1);
 	exit(i);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:15:08 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/03 17:58:52 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/03 19:38:43 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	heredoc_file(char *str, int i)
 	free(take);
 	free(check);
 	close (fd);
-	change_data_input(fd);
+	change_data_input(open("heredoc", O_RDWR | O_TRUNC, 0777));
 	g_data->heredoc_cnt--;
 	return (i);
 }
@@ -68,7 +68,7 @@ int	heredoc_file(char *str, int i)
 void	change_data_input(int file)
 {
 	if (g_data->input_file == -1 || file == -1)
-		exit_program("Fd Error.", -1);
+		exit_program("Fd Error change data input aşkım bunlar ne böyle ", -1);
 	if (g_data->input_file >= 0)
 		close(file);
 	g_data->input_file = file;
