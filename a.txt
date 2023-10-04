@@ -1,1 +1,6 @@
-woops
+fd out değeri neden buraya giriyor : ? -2 ||| fd in : -2
+yaptık mı burayı ?
+std_in : 5 ||| std_out : 6
+fd out değeri neden buraya giriyor : ? -2 ||| fd in : -2
+yaptık mı burayı ?
+std_in : 5 ||| std_out : 6

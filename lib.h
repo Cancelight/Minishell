@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/03 17:15:48 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:50:29 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_parse	*lstlast(t_parse *lst);
 void	add_back(t_parse **lst, t_parse *new);
 int		ft_strlen(const char *s);
 char	*strjoin(char *s1, char *s2);
-char	*substr(char const *s, int start, int len);
+char	*substr(char *s, int start, int len);
 void	ft_split(int n, int i);
 void	reading_line();
 void	addlist_substr(int i, int *n);
@@ -92,5 +92,8 @@ char	*v2_substr(char *s, int start, int len);
 char	*trim_quote(char *str, int i);
 void	duplication(int fd_in, int fd_out);
 char	**libft_split(char *s, char c);
+char	*ft_substr(char *s, int start, int len);
+void	*ft_calloc(size_t count, size_t size);
+void	*ft_memset(void *b, int c, size_t len);
 
 #endif

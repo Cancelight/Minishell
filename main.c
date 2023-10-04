@@ -6,13 +6,27 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/03 16:42:28 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/04 21:24:11 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
 
 t_data	*g_data;
+
+char	*ft_strdup(const char *s1)
+{
+	char	*cp;
+	int i = 0;
+	cp = malloc((ft_strlen(s1) + 1) * sizeof(char));
+	if (cp == NULL)
+		return (0);
+	while(s1[i]){
+		cp[i] = s1[i];
+		i++;
+	}
+	return (cp);
+}
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -23,6 +37,7 @@ int	main(int argc, char **argv, char **envp)
 	g_data->append_flag = -1;
 	g_data->input_file = -2;
 	g_data->output_file = -2;
+	g_data->heredoc_cnt = 0;
 	g_data->line = NULL;
 	g_data->parse = NULL;
 	reading_line();
@@ -32,26 +47,31 @@ int	main(int argc, char **argv, char **envp)
 char	**nav_redirection(char *content)
 {
 	int	i;
+	char **return_array;
+	char *alp;
 
+	alp = ft_strdup(content);
 	i = -1;
-	while (content[++i] )
+	while (alp[++i] )
 	{
-		if (content[i] == '\'')
-			i += strchar(&content[i + 1], '\'') + 2;
-		else if (content[i] == '"')
-			i += strchar(&content[i + 1], '"') + 2;
-		else if (content[i] == '<')
-			i = input_redirection(content, ++i);
-		else if (content[i] == '>' && content[i + 1] == '>')
-			i = append_redirection(content, i + 2);
-		else if (content[i] == '>' && content[i + 1] != '>')
-			i = output_redirection(content, ++i);
+		if (alp[i] == '\'')
+			i += strchar(&alp[i + 1], '\'') + 2;
+		else if (alp[i] == '"')
+			i += strchar(&alp[i + 1], '"') + 2;
+		else if (alp[i] == '<')
+			i = input_redirection(alp, ++i);
+		else if (alp[i] == '>' && alp[i + 1] == '>')
+			i = append_redirection(alp, i + 2);
+		else if (alp[i] == '>' && alp[i + 1] != '>')
+			i = output_redirection(alp, ++i);
 	}
-	if (strrchar(content, '<') != 0 && \
-		content[strrchar(content, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol heredocsa inputu dğeiştiriyor
+	if (strrchar(alp, '<') != 0 && \
+		alp[strrchar(alp, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol heredocsa inputu dğeiştiriyor
 		change_data_input(open("heredoc", O_RDWR | O_TRUNC, 0777));
-	content = remove_redirection(content, NULL);
-	return (libft_split(content, 32));
+	alp = remove_redirection(alp, 0);
+	return_array = libft_split(alp, 32);
+	free(alp);
+	return (return_array);
 }
 
 char	*remove_redirection(char *str, char *new)

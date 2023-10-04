@@ -6,11 +6,14 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/23 19:40:46 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/03 19:34:36 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/04 20:53:13 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
+
+t_data *g_data;
+
 //liste fonksiyonları libftden alınıp struct yapısına uygun revize edildi
 t_parse	*lstnew(char *content)
 {
@@ -111,10 +114,10 @@ int	ft_strlen(const char *s)
 	return (i);
 }
 
-char	*substr(char const *s, int start, int len)
+char	*substr(char *s, int start, int len)
 {
 	char	*ptr;
-	int	i;
+	int		i;
 
 	if (!s)
 		return (0);
@@ -124,12 +127,12 @@ char	*substr(char const *s, int start, int len)
 		len = ft_strlen(s) - start;
 	i = 0;
 	ptr = malloc((len + 1) * sizeof(char));
+	ptr[len] = '\0';
 	if (!ptr)
 		return (NULL);
 	ptr[len] = 0;
 	while (i < len)
 		ptr[i++] = s[start++];
-	ptr[i] = '\0';
 	return (ptr);
 }
 
@@ -342,14 +345,37 @@ char	**libft_split(char *s, char c)
 	ptr = malloc((count + 1) * sizeof(char *));
 	if (ptr == NULL)
 		return (NULL);
+	ptr[count] = 0;
 	while (a < count)
 	{
-		while (s[i] == c)
+		while (s[i] == c && s[i])
 			i++;
 		n = i;
 		while (s[i] != c && s[i])
 			i++;
-		ptr[a++] = substr(s, n, i - n);
+		ptr[a] = ft_substr(s, n, i - n);
+		a++;
 	}
+	return (ptr);
+}
+
+char	*ft_substr(char *s, int start, int len)
+{
+	char	*ptr;
+	int		i;
+
+	if (!s)
+		return (0);
+	if (ft_strlen(s) < start || len <= 0)
+		return (0);
+	if (len > ft_strlen(s) - start)
+		len = ft_strlen(s) - start;
+	i = 0;
+	ptr = malloc((len + 1) * sizeof(char));
+	if (!ptr)
+		return (NULL);
+	ptr[len] = 0;
+	while (i < len)
+		ptr[i++] = s[start++];
 	return (ptr);
 }
