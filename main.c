@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/04 21:24:11 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/09 10:27:34 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,29 +48,29 @@ char	**nav_redirection(char *content)
 {
 	int	i;
 	char **return_array;
-	char *alp;
+	char *temp;
 
-	alp = ft_strdup(content);
+	temp = ft_strdup(content);
 	i = -1;
-	while (alp[++i] )
+	while (temp[++i] )
 	{
-		if (alp[i] == '\'')
-			i += strchar(&alp[i + 1], '\'') + 2;
-		else if (alp[i] == '"')
-			i += strchar(&alp[i + 1], '"') + 2;
-		else if (alp[i] == '<')
-			i = input_redirection(alp, ++i);
-		else if (alp[i] == '>' && alp[i + 1] == '>')
-			i = append_redirection(alp, i + 2);
-		else if (alp[i] == '>' && alp[i + 1] != '>')
-			i = output_redirection(alp, ++i);
+		if (temp[i] == '\'')
+			i += strchar(&temp[i + 1], '\'') + 2;
+		else if (temp[i] == '"')
+			i += strchar(&temp[i + 1], '"') + 2;
+		else if (temp[i] == '<')
+			i = input_redirection(temp, ++i);
+		else if (temp[i] == '>' && temp[i + 1] == '>')
+			i = append_redirection(temp, i + 2);
+		else if (temp[i] == '>' && temp[i + 1] != '>')
+			i = output_redirection(temp, ++i);
 	}
-	if (strrchar(alp, '<') != 0 && \
-		alp[strrchar(alp, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol heredocsa inputu dğeiştiriyor
+	if (strrchar(temp, '<') != 0 && \
+		temp[strrchar(temp, '<') - 1] == '<') //tüm content döndükten sonra en sondaki '<' sembol heredocsa inputu dğeiştiriyor
 		change_data_input(open("heredoc", O_RDWR | O_TRUNC, 0777));
-	alp = remove_redirection(alp, 0);
-	return_array = libft_split(alp, 32);
-	free(alp);
+	temp = remove_redirection(temp, 0);
+	return_array = libft_split(temp, 32);
+	free(temp);
 	return (return_array);
 }
 
