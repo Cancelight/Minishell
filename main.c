@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/09 10:27:34 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:53:36 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int	main(int argc, char **argv, char **envp)
 	g_data->argc = argc;
 	g_data->argv = argv;
 	g_data->envp = envp;
-	g_data->append_flag = -1;
 	g_data->input_file = -2;
 	g_data->output_file = -2;
 	g_data->heredoc_cnt = 0;

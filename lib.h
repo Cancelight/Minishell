@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/04 19:50:29 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:52:57 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ char	**envp;
 char	*line;
 int		input_file;
 int		output_file;
-int		append_flag;
 int		heredoc_cnt;
 int		syntax_flag;
 int		dbl;

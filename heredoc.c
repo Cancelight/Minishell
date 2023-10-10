@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:15:08 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/03 19:38:43 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:46:10 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	heredoc_list(t_parse *parse)
 {
 	while (parse != NULL)
 	{
+		printf("deneme\n\n");
 		if (search(parse->content, "<<") && g_data->heredoc_cnt > 0)
 			heredoc_str(parse->content);
 		parse = parse->next;
@@ -59,7 +60,7 @@ int	heredoc_file(char *str, int i)
 	}
 	free(take);
 	free(check);
-	close (fd);
+	close(fd);
 	change_data_input(open("heredoc", O_RDWR | O_TRUNC, 0777));
 	g_data->heredoc_cnt--;
 	return (i);

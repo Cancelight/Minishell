@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/01 20:06:10 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/04 17:04:09 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/10 17:06:00 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ static void	output_duplication(int	fd_out)
 void	duplication(int	fd_in, int	fd_out)
 {
 	static int	change = 0;
-	static int			std_in;
-	static int			std_out;
+	static int	std_in;
+	static int	std_out;
 
 
 	if (change == 0)

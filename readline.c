@@ -6,13 +6,41 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 18:21:50 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/04 21:23:40 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/10 19:53:16 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lib.h"
 
 t_data *g_data;
+
+void	free_command_db(char **command)
+{
+	int	i;
+
+	i = 0;
+	if (!command)
+		return ;
+	while (command[i] != 0)
+	{
+		free(command[i]);
+		i++;
+	}
+	free(command);
+}
+
+void exit_free(void)
+{
+	if (!(g_data->sng % 2) && !(g_data->dbl % 2))
+				free(g_data->line);
+	clear_lst(&(g_data->parse));
+	g_data->input_file = -2;
+	g_data->output_file = -2;
+	g_data->heredoc_cnt = 0;
+	g_data->syntax_flag = 0;
+	g_data->dbl = 0;
+	g_data->sng = 0;
+}
 
 void	reading_line(void)
 {
@@ -27,11 +55,15 @@ void	reading_line(void)
 			//continue öncesinde freeleme fonksiyonlarını çağırıp error yazdırman lazım syntax flag = 0 olmalı  heredoc count = 0
 			if(g_data->syntax_flag == 1 && g_data->heredoc_cnt == 0){
 				printf("error var canım cigerim\n");
+				exit_free();
 				continue;
 			}
+			printf("hata nerede ayol\n\n");
 			heredoc_list(g_data->parse);
+			printf("buradayım akrabam aliye sokayım\n\n");
 			if(g_data->syntax_flag == 1){
 				printf("error var canım cigerim\n");
+				exit_free();
 				continue;
 			}
 			// node içeriğine git include'dan bak -Alp
@@ -51,27 +83,9 @@ void	reading_line(void)
 
 			//redirectionı kaldırılmış ve double arraye çevirilmiş halidir kullanım while örneği:
 			//(parse exec kısmı bittikten sonra freeleniyor, free yazmana gerek yok).
-			char **command;
-
-			command = nav_redirection(g_data->parse->content);
-			system("leaks minishell");
-			printf("mainde content : %s\n",g_data->parse->content);
-			int i = 0;
-/*			while(command[i] != 0){
-				printf("aşkım %s\n",command[i]);
-				i++;
-			}*/
-			/*while(temp != NULL){
-				printf("main content : %s\n",temp->content);
-				temp = temp->next;
-			}*/
-			//clear_lst(&(g_data->parse));
-			printf("heyy\n");
-		}
-	}
-}
-
-			/*while (temp != NULL)
+			t_parse *temp;
+			temp = g_data->parse;
+			while (temp != NULL)
 			{
 				int	fd_out;
 				int	fd_in;
@@ -79,22 +93,31 @@ void	reading_line(void)
 				if (temp->content[0] != '|') //pipelar direkt atlanabilir
 				{
 					command_line = nav_redirection(temp->content);
-				//system("leaks minishell");
 					fd_out = g_data->output_file;//bunları yeniden atmak yerine fonksiyona atabilirsin sadece daha net görünsün diye variable'a attım
 					fd_in = g_data->input_file;
-					//duplication(fd_in, fd_out);
+					duplication(fd_in, fd_out);
+					free_command_db(command_line);
+					g_data->input_file = -2;//-2 olma sebepleri halihazırda atanmış dosya bulunmuyor Null gibi düşün
+					g_data->output_file = -2;
+					duplication(g_data->input_file, g_data->output_file);
 				}
 				temp =temp->next;
 			}
+			//fork içinde mi değil mi?
+			// ilk command çalıştı red fonksiyonu dup2 değişti
+			//
 			temp = g_data->parse;
 			g_data->input_file = -2;//-2 olma sebepleri halihazırda atanmış dosya bulunmuyor Null gibi düşün
 			g_data->output_file = -2;
-			//duplication(g_data->input_file, g_data->output_file);
+			duplication(g_data->input_file, g_data->output_file);
 			//buradan itibaren execten sonra çalışacak genel freeleme ve yeni komut line alma işlemi süreci başlıyor
-			if (!(g_data->sng % 2) && !(g_data->dbl % 2))
-				free(g_data->line);
-
 			while(temp != NULL){
-				printf("maindeki content : %s\n",g_data->parse->content);
+				printf("maindeki content : %s\n",temp->content);
 				temp = temp->next;
-			}*/
+			}
+			free(temp);
+			exit_free();
+			system("leaks minishel");
+		}
+	}
+}
