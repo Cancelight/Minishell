@@ -1,47 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   general.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/22 18:13:25 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/10 19:53:36 by bkiziler         ###   ########.fr       */
+/*   Created: 2023/10/14 12:11:59 by bkiziler          #+#    #+#             */
+/*   Updated: 2023/10/14 17:43:43 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib.h"
+#include "../../includes/lib.h"
 
-t_data	*g_data;
-
-char	*ft_strdup(const char *s1)
-{
-	char	*cp;
-	int i = 0;
-	cp = malloc((ft_strlen(s1) + 1) * sizeof(char));
-	if (cp == NULL)
-		return (0);
-	while(s1[i]){
-		cp[i] = s1[i];
-		i++;
-	}
-	return (cp);
-}
-
-int	main(int argc, char **argv, char **envp)
-{
-	g_data = malloc(sizeof(t_data) * 1);
-	g_data->argc = argc;
-	g_data->argv = argv;
-	g_data->envp = envp;
-	g_data->input_file = -2;
-	g_data->output_file = -2;
-	g_data->heredoc_cnt = 0;
-	g_data->line = NULL;
-	g_data->parse = NULL;
-	reading_line();
-	signal_function();//şimdilik çalışmıyor proje bitince yazılacak
-}
+t_data *g_data;
 
 char	**nav_redirection(char *content)
 {

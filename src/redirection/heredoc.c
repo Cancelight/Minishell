@@ -6,11 +6,11 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 16:15:08 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/10 19:46:10 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:42:51 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib.h"
+#include "../../includes/lib.h"
 
 t_data	*g_data;
 
@@ -18,7 +18,6 @@ void	heredoc_list(t_parse *parse)
 {
 	while (parse != NULL)
 	{
-		printf("deneme\n\n");
 		if (search(parse->content, "<<") && g_data->heredoc_cnt > 0)
 			heredoc_str(parse->content);
 		parse = parse->next;
@@ -33,7 +32,7 @@ void	heredoc_str(char *str)
 	while (str[++i] && g_data->heredoc_cnt > 0)
 	{
 		if (str[i] == '\'')
-			i += strchar(&str[i + 1], '\'') + 2;//tırnak index hatası
+			i += strchar(&str[i + 1], '\'') + 2;
 		else if (str[i] == '"')
 			i += strchar(&str[i + 1], '"') + 2;
 		else if (str[i] == '<' && str[i + 1] == '<')

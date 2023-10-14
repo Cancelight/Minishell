@@ -6,7 +6,7 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/22 18:27:58 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/10 19:52:57 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:22:18 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ char	*trim_quote(char *str, int i);
 void	duplication(int fd_in, int fd_out);
 char	**libft_split(char *s, char c);
 char	*ft_substr(char *s, int start, int len);
-void	*ft_calloc(size_t count, size_t size);
-void	*ft_memset(void *b, int c, size_t len);
+void	reset_struct(void);
+void	free_command_db(char **command);
+char	*ft_strdup(const char *s1);
+void	re_free(void);
 
 #endif

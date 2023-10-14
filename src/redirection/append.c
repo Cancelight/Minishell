@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   output_redirec.c                                   :+:      :+:    :+:   */
+/*   append.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/20 13:26:15 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/03 19:39:02 by bkiziler         ###   ########.fr       */
+/*   Created: 2023/09/20 13:22:28 by bkiziler          #+#    #+#             */
+/*   Updated: 2023/10/14 17:43:25 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "lib.h"
+#include "../../includes/lib.h"
 
 t_data	*g_data;
 
-int	output_redirection(char *str, int i)
+int	append_redirection(char *str, int i)
 {
 	int		fd;
 	char	*file;
@@ -22,12 +22,21 @@ int	output_redirection(char *str, int i)
 	while (str[i] == 32)
 		i++;
 	file = trim_quote(str, i);
-	fd = open(file, O_CREAT | O_WRONLY | O_TRUNC, 0777);
+	fd = open(file, O_CREAT | O_WRONLY | O_APPEND, 0777);
 	if (fd == -1)
-		exit_program("Fd Error aşkımmmmm oputput redirction func daymış buda biliyon mu xd", -1);
+		exit_program("Fd Error Append 2 append_redirection func.", -1);
 	close(fd);
 	if (strchar(&str[i], '>') == -1)
-		change_data_output(open(file, O_CREAT | O_WRONLY | O_TRUNC, 0777), 0);
+		change_data_output(open(file, O_CREAT | O_WRONLY | O_APPEND, 0777), 1);
 	free(file);
 	return(--i);
+}
+
+void	change_data_output(int file, int append_flag)
+{
+	if (g_data->output_file == -1)
+		exit_program("Fd Error Append 1.", -1);
+	if (g_data->output_file >= 0)
+		close(file);
+	g_data->output_file = file;
 }
