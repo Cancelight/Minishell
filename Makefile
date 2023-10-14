@@ -1,7 +1,7 @@
 SRCS = ./src/main.c \
-		./src/utils.c \
-		./src/reset_utils.c \
-		./src/libft_split.c \
+		./src/utils_files/utils.c \
+		./src/utils_files/reset_utils.c \
+		./src/utils_files/libft_split.c \
 		./src/signal/signal.c \
 		./src/parser/parser.c \
 		./src/parser/parser_utils.c \

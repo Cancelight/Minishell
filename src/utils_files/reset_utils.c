@@ -6,11 +6,11 @@
 /*   By: bkiziler <bkiziler@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/14 17:29:28 by bkiziler          #+#    #+#             */
-/*   Updated: 2023/10/14 18:04:40 by bkiziler         ###   ########.fr       */
+/*   Updated: 2023/10/14 18:10:23 by bkiziler         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/lib.h"
+#include "../../includes/lib.h"
 
 t_data	*g_data;
 
